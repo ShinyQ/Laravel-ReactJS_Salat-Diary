@@ -1,6 +1,6 @@
 import {combineReducers} from 'redux';
-import dummyReducer from "./dummyReducer";
+import locationReducer from "./locationReducer";
 
 export default combineReducers({
-    dummy: dummyReducer
+    location: locationReducer
 })
