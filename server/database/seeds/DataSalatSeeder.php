@@ -1,9 +1,9 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\User;
+use App\DataSalat;
 
-class UserSeeder extends Seeder
+class DataSalatSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -12,6 +12,6 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        factory(User::class,5)->create();
+        factory(DataSalat::class,5)->create();
     }
 }
