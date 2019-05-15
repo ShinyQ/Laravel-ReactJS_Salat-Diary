@@ -17,6 +17,9 @@ class RegisterController extends Controller
           'name' => ['required', 'string', 'max:255'],
           'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
           'password' => ['required', 'string', 'min:8'],
+          'jenis_kelamin' => ['required', 'string'],
+          'provinsi' => ['required', 'string'],
+          'kota' => ['required', 'string'],
       ]);
 
       if ($validator->fails()) {
@@ -27,6 +30,9 @@ class RegisterController extends Controller
           'name' => $request->name,
           'email' => $request->email,
           'password' => Bcrypt($request->password),
+          'jenis_kelamin' => $request->jenis_kelamin,
+          'provinsi' => $request->provinsi,
+          'kota' => $request->kota
       ]);
 
       $success['user'] = $user;
