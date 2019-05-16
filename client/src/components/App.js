@@ -1,6 +1,9 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
+import {BrowserRouter, Route} from 'react-router-dom';
 import {getGeoPosition} from "../actions/locationAction";
+
+import Login from './Login';
 
 class App extends Component {
 
@@ -11,9 +14,11 @@ class App extends Component {
     render() {
         return (
             <div>
-                Shalat Diary gan
-                <p>{this.props.lat}</p>
-                <p>{this.props.long}</p>
+                <BrowserRouter>
+                    <div>
+                        <Route path="/login" exact component={Login}/>
+                    </div>
+                </BrowserRouter>
             </div>
         );
     }
