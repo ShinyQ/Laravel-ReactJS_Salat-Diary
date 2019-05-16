@@ -14,3 +14,15 @@ export const getLogin = (email, password) => async dispatch => {
     console.log(response.data);
     dispatch({type: GET_LOGIN, payload: response.data});
 };
+
+/**
+ * Register Action used for Register User
+ *
+ * @param {object} userData- Object containing all key and value to post
+ *
+ */
+export const getRegister = (userData) => async dispatch => {
+    console.log({...userData, provinsi: 'Jawa Timur', kota: 'Malang'});
+    const response = await shalatDiary.post('/api/register', {...userData, provinsi: 'Jawa Timur', kota: 'Malang'});
+    console.log(response.data);
+};
