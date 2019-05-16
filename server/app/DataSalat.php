@@ -14,6 +14,6 @@ class DataSalat extends Model
 
    public function users()
    {
-      return $this->hasOne(User::class, "id","id_user");
+      return $this->hasOne(User::class, 'id', 'id_user');
    }
 }
