@@ -6,11 +6,15 @@ import {Link} from "react-router-dom";
 import {Button, Card, Col, Form, Input, Radio, Row} from 'antd';
 
 import './style.less';
-import {getLogin} from "../../actions/authAction";
+import {getRegister} from "../../actions/authAction";
 import AuthDecorPage from "../Other/AuthDecorPage";
 
 
 class Register extends Component {
+
+    state = {
+        isLoading: false
+    };
 
     renderInputText = ({input, tipe, icon}) => {
         return (
@@ -36,14 +40,9 @@ class Register extends Component {
             </Radio.Group>
         )
     };
-    onSubmit = (props) => {
-        console.log(props);
+    onSubmit = formValues => {
+        this.props.getRegister(formValues)
     };
-
-    constructor(props) {
-        super(props);
-
-    }
 
     render() {
         return (
@@ -97,4 +96,4 @@ const formWrapped = reduxForm({
     form: 'registerForm'
 })(WrappedNormalLoginForm);
 
-export default connect(null, {getLogin})(formWrapped)
+export default connect(null, {getRegister})(formWrapped)
