@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {Field, reduxForm} from 'redux-form';
-import {Link} from "react-router-dom";
+import {Link, withRouter} from "react-router-dom";
 
 import {Button, Card, Col, Form, Input, Radio, Row} from 'antd';
 
@@ -12,8 +12,8 @@ import AuthDecorPage from "../Other/AuthDecorPage";
 
 class Register extends Component {
 
-    state = {
-        isLoading: false
+    handleRedirect = () => {
+        this.props.history.push('/login')
     };
 
     renderInputText = ({input, tipe, icon}) => {
@@ -40,8 +40,8 @@ class Register extends Component {
             </Radio.Group>
         )
     };
-    onSubmit = formValues => {
-        this.props.getRegister(formValues)
+    onSubmit = (formValues) => {
+        this.props.getRegister(formValues, this.handleRedirect)
     };
 
     render() {
@@ -90,10 +90,12 @@ class Register extends Component {
     }
 }
 
+
 const WrappedNormalLoginForm = Form.create({name: 'register_form'})(Register);
 
 const formWrapped = reduxForm({
     form: 'registerForm'
 })(WrappedNormalLoginForm);
 
-export default connect(null, {getRegister})(formWrapped)
+
+export default withRouter(connect(null, {getRegister})(formWrapped))

@@ -1,5 +1,5 @@
 import shalatDiary from '../apis/shalatDiary';
-import {GET_LOGIN} from "../constant";
+import {GET_LOGIN, GET_REGISTER, RESET_IS_JUST_REGISTER} from "../constant";
 
 /**
  * Login Action used for login authentication
@@ -21,8 +21,18 @@ export const getLogin = (email, password) => async dispatch => {
  * @param {object} userData- Object containing all key and value to post
  *
  */
-export const getRegister = (userData) => async dispatch => {
-    console.log({...userData, provinsi: 'Jawa Timur', kota: 'Malang'});
-    const response = await shalatDiary.post('/api/register', {...userData, provinsi: 'Jawa Timur', kota: 'Malang'});
-    console.log(response.data);
+export const getRegister = (userData, redirectOnSuccess) => async dispatch => {
+    try {
+        const response = await shalatDiary.post('/api/register', {...userData, provinsi: 'Jawa Timur', kota: 'Malang'});
+        dispatch({type: GET_REGISTER, payload: response.data});
+        redirectOnSuccess();
+    } catch (e) {
+        console.log(e.message);
+    }
+};
+
+export const resetIsJustRegister = () => {
+    return {
+        type: RESET_IS_JUST_REGISTER
+    }
 };
