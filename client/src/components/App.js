@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {Component, Fragment} from 'react';
 import {connect} from 'react-redux';
 import {BrowserRouter, Route} from 'react-router-dom';
 import {getGeoPosition} from "../actions/locationAction";
@@ -13,13 +13,13 @@ class App extends Component {
 
     render() {
         return (
-            <div>
+            <Fragment>
                 <BrowserRouter>
-                    <div>
+                    <Fragment>
                         <Route path="/login" exact component={Login}/>
-                    </div>
+                    </Fragment>
                 </BrowserRouter>
-            </div>
+            </Fragment>
         );
     }
 }
