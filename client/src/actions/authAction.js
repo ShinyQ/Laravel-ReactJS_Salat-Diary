@@ -9,7 +9,8 @@ import {GET_LOGIN} from "../constant";
  *
  */
 export const getLogin = (email, password) => async dispatch => {
-    const response = shalatDiary.post('/api/login', {email, password});
+    const response = await shalatDiary.post('/api/login', {email, password});
 
+    console.log(response.data);
     dispatch({type: GET_LOGIN, payload: response.data});
 };
