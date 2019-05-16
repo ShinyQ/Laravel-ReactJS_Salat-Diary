@@ -44,6 +44,8 @@ class Register extends Component {
             </Radio.Group>
         )
     };
+
+    //Helper Function to filter provinsi
     filterIdFromProvinsi = (provinsi) => {
         if (this.props.provinsi !== null) {
             const idProv = this.props.provinsi.find(prov => prov.nama === provinsi);
@@ -52,6 +54,7 @@ class Register extends Component {
             }
         }
     };
+
     renderInputSelect = ({input, meta, children, disabled}) => {
         this.filterIdFromProvinsi(input.value);
         return (
@@ -60,6 +63,7 @@ class Register extends Component {
             </Select>
         )
     };
+
     renderListProvinsi = () => {
         if (this.props.provinsi !== null) {
             return this.props.provinsi.map(prov => (
