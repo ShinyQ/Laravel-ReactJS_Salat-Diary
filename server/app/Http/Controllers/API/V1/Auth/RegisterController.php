@@ -8,6 +8,9 @@ use ApiBuilder;
 use Validator;
 use Illuminate\Support\Facades\Auth;
 use App\User;
+use Mail;
+use App\Mail\VerifikasiEmail;
+use Carbon\Carbon;
 
 class RegisterController extends Controller
 {
@@ -32,11 +35,34 @@ class RegisterController extends Controller
           'password' => Bcrypt($request->password),
           'jenis_kelamin' => $request->jenis_kelamin,
           'provinsi' => $request->provinsi,
-          'kota' => $request->kota
+          'kota' => $request->kota,
+          'token' => str_random(40)
       ]);
+      Mail::to($request->email)->send(new VerifikasiEmail($user));
 
       $success['user'] = $user;
 
       return ApiBuilder::apiResponseSuccess('Register Sukses!', $success, 200);
     }
+
+    public function verifyUser($token)
+    {
+     $verifyUser = User::where('token', $token)->first();
+     if(isset($verifyUser) ){
+         if($verifyUser->email_verified_at == null) {
+             $time = Carbon::now();
+             $verifyUser->email_verified_at = $time;
+             $verifyUser->save();
+             Session::flash('message', 'Sukses Melakukan Konfirmasi, Silahkan Login');
+         }else{
+           Session::flash('message_gagal', 'Anda Sudah Mengkonfirmasi Akun');
+         }
+     }else{
+         Session::flash('message_gagal', 'Akun Tersebut Tidak Ditemukan');
+         return redirect('/login');
+     }
+
+     return redirect('/login');
+    }
+
 }
