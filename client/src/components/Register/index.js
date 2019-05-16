@@ -3,19 +3,21 @@ import {connect} from 'react-redux';
 import {Field, reduxForm} from 'redux-form';
 import {Link, withRouter} from "react-router-dom";
 
-import {Button, Card, Col, Form, Input, Radio, Row} from 'antd';
+import {Button, Card, Col, Form, Input, Radio, Row, Select} from 'antd';
 
-import './style.less';
 import {getRegister} from "../../actions/authAction";
+import {getKabupaten, getProvinsi} from "../../actions/locationAction";
 import AuthDecorPage from "../Other/AuthDecorPage";
+import './style.less';
 
 
 class Register extends Component {
 
+    // Redirect when register is successful
     handleRedirect = () => {
         this.props.history.push('/login')
     };
-
+    // Rendering input type text for Redux Form
     renderInputText = ({input, tipe, icon}) => {
         return (
             <Input
@@ -25,6 +27,7 @@ class Register extends Component {
             />
         )
     };
+    // Rendering input type password for Redux Form
     renderInputPassword = ({input}) => {
         return (
             <Input.Password
@@ -33,6 +36,7 @@ class Register extends Component {
             />
         )
     };
+    // Rendering input type Radio for Redux Form
     renderInputRadio = ({input, meta, children}) => {
         return (
             <Radio.Group {...input}>
@@ -40,11 +44,51 @@ class Register extends Component {
             </Radio.Group>
         )
     };
+    filterIdFromProvinsi = (provinsi) => {
+        if (this.props.provinsi !== null) {
+            const idProv = this.props.provinsi.find(prov => prov.nama === provinsi);
+            if (idProv !== undefined) {
+                this.props.getKabupaten(idProv.id);
+            }
+        }
+    };
+    renderInputSelect = ({input, meta, children, disabled}) => {
+        this.filterIdFromProvinsi(input.value);
+        return (
+            <Select {...input} disabled={disabled}>
+                {children}
+            </Select>
+        )
+    };
+    renderListProvinsi = () => {
+        if (this.props.provinsi !== null) {
+            return this.props.provinsi.map(prov => (
+                <Select.Option value={prov.nama} key={prov.id}>
+                    {prov.nama}
+                </Select.Option>
+            ))
+        }
+    };
+    renderListKabupaten = () => {
+        if (this.props.kabupaten !== null) {
+            return this.props.kabupaten.map(kab => (
+                <Select.Option value={kab.nama} key={kab.id}>
+                    {kab.nama}
+                </Select.Option>
+            ))
+        }
+    };
+    //Callback when Register Button is clicked
     onSubmit = (formValues) => {
         this.props.getRegister(formValues, this.handleRedirect)
     };
 
+    componentDidMount() {
+        this.props.getProvinsi();
+    }
+
     render() {
+        const isKabupaten = !!!this.props.kabupaten;
         return (
             <Row>
                 <Col span={12}>
@@ -65,6 +109,24 @@ class Register extends Component {
                                             <Radio value="ukhti">Ukhti</Radio>
                                         </Field>
                                     </Form.Item>
+                                    <Row gutter={16}>
+                                        <Col span={12}>
+                                            <Form.Item label="Provinsi">
+                                                <Field name="provinsi" component={this.renderInputSelect}
+                                                       disabled={false}>
+                                                    {this.renderListProvinsi()}
+                                                </Field>
+                                            </Form.Item>
+                                        </Col>
+                                        <Col span={12}>
+                                            <Form.Item label="Kota/Kabupaten" className="formItemRegister">
+                                                <Field name="kota" component={this.renderInputSelect}
+                                                       disabled={isKabupaten}>
+                                                    {this.renderListKabupaten()}
+                                                </Field>
+                                            </Form.Item>
+                                        </Col>
+                                    </Row>
                                     <Form.Item label="Email" className="formItemRegister">
                                         <Field name="email" component={this.renderInputText} tipe="email" icon="mail"/>
                                     </Form.Item>
@@ -97,5 +159,11 @@ const formWrapped = reduxForm({
     form: 'registerForm'
 })(WrappedNormalLoginForm);
 
+const mapStateToProps = state => {
+    return {
+        provinsi: state.location.provinsi,
+        kabupaten: state.location.kabupaten,
+    }
+};
 
-export default withRouter(connect(null, {getRegister})(formWrapped))
+export default withRouter(connect(mapStateToProps, {getRegister, getKabupaten, getProvinsi})(formWrapped))

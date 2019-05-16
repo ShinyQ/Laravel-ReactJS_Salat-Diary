@@ -23,7 +23,7 @@ export const getLogin = (email, password) => async dispatch => {
  */
 export const getRegister = (userData, redirectOnSuccess) => async dispatch => {
     try {
-        const response = await shalatDiary.post('/api/register', {...userData, provinsi: 'Jawa Timur', kota: 'Malang'});
+        const response = await shalatDiary.post('/api/register', {...userData});
         dispatch({type: GET_REGISTER, payload: response.data});
         redirectOnSuccess();
     } catch (e) {

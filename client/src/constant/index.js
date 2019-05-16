@@ -3,6 +3,8 @@ export const BASE_URL = 'http://localhost:8000';
 
 //Action Types
 export const GET_CURRENT_POSITION = 'GET_CURRENT_POSITION';
+export const GET_PROVINSI = 'GET_PROVINSI';
+export const GET_KABUPATEN = 'GET_KABUPATEN';
 export const ERR_GET_CURRENT_POSITION = 'ERR_GET_CURRENT_POSITION';
 export const GET_LOGIN = 'GET_LOGIN';
 export const GET_REGISTER = 'GET_REGISTER';
