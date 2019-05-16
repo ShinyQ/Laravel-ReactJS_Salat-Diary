@@ -4,6 +4,7 @@ import {BrowserRouter, Route} from 'react-router-dom';
 import {getGeoPosition} from "../actions/locationAction";
 
 import Login from './Login';
+import Register from './Register'
 
 class App extends Component {
 
@@ -17,6 +18,7 @@ class App extends Component {
                 <BrowserRouter>
                     <Fragment>
                         <Route path="/login" exact component={Login}/>
+                        <Route path="/register" exact component={Register}/>
                     </Fragment>
                 </BrowserRouter>
             </Fragment>

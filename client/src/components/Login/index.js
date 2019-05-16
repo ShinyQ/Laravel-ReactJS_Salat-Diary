@@ -1,11 +1,12 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
+import {Link} from 'react-router-dom';
 import {Field, reduxForm} from 'redux-form';
-
 import {Button, Card, Col, Form, Icon, Input, Row} from 'antd';
 
 import './style.less';
 import {getLogin} from "../../actions/authAction";
+import AuthDecorPage from "../Other/AuthDecorPage";
 
 class Login extends Component {
 
@@ -14,7 +15,7 @@ class Login extends Component {
             <Input
                 {...input}
                 type={tipe}
-                prefix={<Icon type={icon} style={{color: 'rgba(0,0,0,.75)'}}/>}
+                prefix={<Icon type={icon} style={{color: 'rgba(0,0,0,.25)'}}/>}
                 placeholder={input.name.charAt(0).toUpperCase() + input.name.slice(1)}
             />
         )
@@ -29,24 +30,16 @@ class Login extends Component {
         return (
             <Row>
                 <Col span={12}>
-                    <div className="login-decor vAlignParent">
-                        <div className="vAlign">
-                            <img src="" alt="shalatDiary"/>
-                            <h1>Welcome to Salat Diary</h1>
-                            <h4>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab asperiores aspernatur,
-                                delectus deserunt dignissimos dolore error explicabo fuga impedit laboriosam minima
-                                necessitatibus neque nihil, rem repellat sit vel veniam voluptas.</h4>
-                        </div>
-                    </div>
+                    <AuthDecorPage/>
                 </Col>
                 <Col span={12}>
                     <div className="login-bound">
                         <div className="vAlign">
                             <Card className="login-card">
-                                <img src="" alt=""/>
+                                <h1>Login</h1>
                                 <Form onSubmit={this.props.handleSubmit(this.onSubmit)} className="login-form">
                                     <Form.Item>
-                                        <Field name="email" component={this.renderInput} tipe="email" icon="user"/>
+                                        <Field name="email" component={this.renderInput} tipe="email" icon="mail"/>
                                     </Form.Item>
                                     <Form.Item>
                                         <Field name="password" component={this.renderInput} tipe="password"
@@ -58,7 +51,7 @@ class Login extends Component {
                                     </Form.Item>
                                 </Form>
 
-                                <p>Belum Punya Akun? Register</p>
+                                <p>Belum Punya Akun? <Link to="/register">Register</Link></p>
                             </Card>
                             <p>Presented By: SSATeam</p>
                         </div>
