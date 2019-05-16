@@ -21,7 +21,7 @@ class CreateDataSalatTable extends Migration
             $table->string('asar', 20)->nullable();
             $table->string('magrib', 20)->nullable();
             $table->string('isya', 20)->nullable();
-            $table->date('tanggal')->unique();
+            $table->date('tanggal');
             $table->timestamps();
             $table->softDeletes();
         });

@@ -69,7 +69,28 @@ class SalatController extends Controller
      */
     public function store(Request $request)
     {
-        //
+      try{
+          $this->validate($request, [
+                'id_user'  => 'required',
+                'tanggal'   => 'required|date'
+          ]);
+          $response = new DataSalat($request->except("_token"));
+          $response->save();
+          $code = 200;
+          $message = "success";
+
+      }catch (\Exception $e) {
+        if ($e instanceof ValidationException) {
+              $code = 422;
+              $message = $e->errors();
+              $response = [];
+          } else{
+              $code = 500;
+              $message = $e->getMessage();
+              $response = [];
+          }
+      }
+      return ApiBuilder::apiRespond($code, $response, $message);
     }
 
     /**
@@ -80,7 +101,25 @@ class SalatController extends Controller
      */
     public function show($id)
     {
+      try {
+        $code = 200;
+        $message = "success";
+        $response = DataSalat::findOrFail($id);
+        $response = new DataSalatResource($response);
 
+      } catch (\Exception $e) {
+        if($e instanceof ModelNotFoundException){
+          $code= 200;
+          $message = "Data Not Exist";
+          $response = [];
+        }
+        else{
+          $code= 500;
+          $message = $e->errors();
+          $response = [];
+        }
+      }
+      return ApiBuilder::apiRespond($code, $response, $message);
     }
 
     /**
@@ -103,7 +142,36 @@ class SalatController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+      try{
+          $this->validate($request, [
+                'id_user'  => 'required',
+                'tanggal'   => 'required|date'
+          ]);
+          $response = DataSalat::findOrFail($id);
+          $response->id_user = $request->id_user;
+          $response->tanggal = $request->tanggal;
+          $response->subuh = $request->subuh;
+          $response->zuhur = $request->zuhur;
+          $response->asar = $request->asar;
+          $response->magrib = $request->magrib;
+          $response->isya = $request->isya;
+
+          $response->save();
+          $code = 200;
+          $message = "success";
+
+      }catch (\Exception $e) {
+        if ($e instanceof ValidationException) {
+              $code = 422;
+              $message = $e->errors();
+              $response = [];
+          } else{
+              $code = 500;
+              $message = $e->getMessage();
+              $response = [];
+          }
+      }
+      return ApiBuilder::apiRespond($code, $response, $message);
     }
 
     /**
@@ -114,6 +182,24 @@ class SalatController extends Controller
      */
     public function destroy($id)
     {
-        //
+      try {
+        $code = 200;
+        $message = "success";
+        $response = DataSalat::findOrFail($id);
+        $response = $response->delete();
+        
+      } catch (\Exception $e) {
+        if($e instanceof ModelNotFoundException){
+          $code= 200;
+          $message = "Data Not Exist";
+          $response = [];
+        }
+        else{
+          $code= 500;
+          $message = $e->getMessage();
+          $response = [];
+        }
+      }
+      return ApiBuilder::apiRespond($code, $response, $message);
     }
 }
