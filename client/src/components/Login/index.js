@@ -1,6 +1,9 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {Field, reduxForm} from 'redux-form';
+
+import {Button} from 'antd';
+
 import {getLogin} from "../../actions/authAction";
 
 class Login extends Component {
@@ -21,7 +24,7 @@ class Login extends Component {
                 <form onSubmit={this.props.handleSubmit(this.onSubmit)}>
                     <Field name="email" component={this.renderInput} tipe="email"/>
                     <Field name="password" component={this.renderInput} tipe="password"/>
-                    <button>Login</button>
+                    <Button type="primary">Login</Button>
                 </form>
             </div>
         );
