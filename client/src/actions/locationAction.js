@@ -1,6 +1,9 @@
 import {ERR_GET_CURRENT_POSITION, GET_CURRENT_POSITION} from '../constant';
 
-// Get the latitude and longitude
+/**
+ * Get Geolocation Action
+ *
+ */
 export const getGeoPosition = () => dispatch => {
     const success = pos => {
         dispatch({
