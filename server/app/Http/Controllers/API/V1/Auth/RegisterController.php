@@ -11,6 +11,9 @@ use App\User;
 use Mail;
 use App\Mail\VerifikasiEmail;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Validation\ValidationException;
+use Exception;
 
 class RegisterController extends Controller
 {
@@ -47,22 +50,36 @@ class RegisterController extends Controller
 
     public function verifyUser($token)
     {
-     $verifyUser = User::where('token', $token)->first();
-     if(isset($verifyUser) ){
-         if($verifyUser->email_verified_at == null) {
-             $time = Carbon::now();
-             $verifyUser->email_verified_at = $time;
-             $verifyUser->save();
-             Session::flash('message', 'Sukses Melakukan Konfirmasi, Silahkan Login');
-         }else{
-           Session::flash('message_gagal', 'Anda Sudah Mengkonfirmasi Akun');
-         }
-     }else{
-         Session::flash('message_gagal', 'Akun Tersebut Tidak Ditemukan');
-         return redirect('/login');
-     }
+      try {
+        $verifyUser = User::where('token', $token)->first();
+        if($verifyUser->email_verified_at == null) {
+            $time = Carbon::now();
+            $verifyUser->email_verified_at = $time;
+            $verifyUser->save();
 
-     return redirect('/login');
+            $code= 200;
+            $message = "Sukses Mengkonfirmasi Akun";
+            $response = $verifyUser;
+        }else{
+          $code= 200;
+          $message = "Anda Sudah Melakukan Verifikasi Akun";
+          $response = $verifyUser;
+        }
+
+      }catch (\Exception $e) {
+        if($e instanceof ModelNotFoundException){
+          $code= 200;
+          $message = "Data Not Exist";
+          $response = [];
+        }
+        else{
+          $code= 500;
+          $message = $e->getMessage();
+          $response = [];
+        }
+      }
+
+      return ApiBuilder::apiRespond($code, $response, $message);
     }
 
 }
