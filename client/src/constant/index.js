@@ -10,3 +10,5 @@ export const GET_LOGIN = 'GET_LOGIN';
 export const GET_REGISTER = 'GET_REGISTER';
 export const RESET_IS_JUST_REGISTER = 'RESET_IS_JUST_REGISTER';
 export const TOGGLE_DRAWER = 'TOGGLE_DRAWER';
+export const IS_LOGGED_IN = 'IS_LOGGED_IN';
+export const GET_LOGOUT = 'GET_LOGOUT';

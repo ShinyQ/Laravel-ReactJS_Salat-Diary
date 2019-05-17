@@ -1,25 +1,30 @@
 import React, {Component, Fragment} from 'react';
 import {connect} from 'react-redux';
-import {Link} from 'react-router-dom';
+import {Link, withRouter} from 'react-router-dom';
 import {Field, reduxForm} from 'redux-form';
 import {Button, Card, Col, Form, Icon, Input, notification, Row} from 'antd';
 
 import './style.less';
-import {getLogin, resetIsJustRegister} from "../../actions/authAction";
+import {checkLoggedIn, getLogin, resetIsJustRegister} from "../../actions/authAction";
 import AuthDecorPage from "../Other/AuthDecorPage";
 
 class Login extends Component {
 
-    componentDidMount() {
-        if (this.props.isJustRegister) {
-            notification.open({
-                message: 'Berhasil Registrasi',
-                description: 'Silahkan buka E-mail untuk melaukan verifikasi',
-                icon: <Icon type="check" style={{color: '#108ee9'}}/>,
-            });
-            this.props.resetIsJustRegister();
+    checkLoggedIn = async () => {
+        //Check If User is Already Logged In
+
+        await this.props.checkLoggedIn();
+        this.isLoggedIn = this.props.isLoggedIn;
+
+        if (this.isLoggedIn) {
+            this.props.history.push('/dashboard');
         }
-    }
+    };
+    onSubmit = async ({email, password}) => {
+        console.log(email, password);
+        await this.props.getLogin(email, password);
+        this.checkLoggedIn();
+    };
 
 
     renderInput = ({input, tipe, icon}) => {
@@ -33,10 +38,17 @@ class Login extends Component {
         )
     };
 
-    onSubmit = ({email, password}) => {
-        console.log(email, password);
-        this.props.getLogin(email, password)
-    };
+    componentDidMount() {
+        if (this.props.isJustRegister) {
+            notification.open({
+                message: 'Berhasil Registrasi',
+                description: 'Silahkan buka E-mail untuk melaukan verifikasi',
+                icon: <Icon type="check" style={{color: '#108ee9'}}/>,
+            });
+            this.props.resetIsJustRegister();
+        }
+        this.checkLoggedIn()
+    }
 
     render() {
         return (
@@ -84,8 +96,11 @@ const formWrapped = reduxForm({
 
 const mapStateToProps = state => {
     return {
-        isJustRegister: state.auth.isJustRegister
+        isJustRegister: state.auth.isJustRegister,
+        isLoggedIn: state.auth.isLoggedIn
     }
 };
 
-export default connect(mapStateToProps, {getLogin, resetIsJustRegister})(formWrapped)
+const connectWrap = connect(mapStateToProps, {getLogin, resetIsJustRegister, checkLoggedIn})(formWrapped);
+
+export default withRouter(connectWrap)

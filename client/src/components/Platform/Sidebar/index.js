@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Icon, Layout, Menu} from "antd";
 
-const {Header, Sider, Content} = Layout;
+const {Sider} = Layout;
 
 class Sidebar extends Component {
     render() {

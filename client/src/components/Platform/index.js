@@ -1,5 +1,8 @@
 import React, {Component} from 'react';
 import {Layout} from 'antd';
+import {connect} from 'react-redux'
+
+import {checkLoggedIn} from "../../actions/authAction";
 
 import './style.less';
 import Sidebar from "./Sidebar";
@@ -11,6 +14,20 @@ const {Content} = Layout;
 
 class Platform extends Component {
 
+    checkLoggedIn = async () => {
+        //Check If User is Already Logged In
+
+        await this.props.checkLoggedIn();
+        this.isLoggedIn = this.props.isLoggedIn;
+
+        if (!this.isLoggedIn) {
+            this.props.history.push('/login');
+        }
+    };
+
+    componentDidMount() {
+        this.checkLoggedIn()
+    }
 
     render() {
         return (
@@ -34,4 +51,11 @@ class Platform extends Component {
     }
 }
 
-export default Platform;
+const mapStateToProps = state => {
+    return {
+        isLoggedIn: state.auth.isLoggedIn
+    }
+};
+
+
+export default connect(mapStateToProps, {checkLoggedIn})(Platform);

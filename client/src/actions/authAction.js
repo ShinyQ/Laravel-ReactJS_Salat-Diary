@@ -1,5 +1,5 @@
 import shalatDiary from '../apis/shalatDiary';
-import {GET_LOGIN, GET_REGISTER, RESET_IS_JUST_REGISTER} from "../constant";
+import {GET_LOGIN, GET_LOGOUT, GET_REGISTER, IS_LOGGED_IN, RESET_IS_JUST_REGISTER} from "../constant";
 
 /**
  * Login Action used for login authentication
@@ -38,5 +38,26 @@ export const getRegister = (userData, redirectOnSuccess) => async dispatch => {
 export const resetIsJustRegister = () => {
     return {
         type: RESET_IS_JUST_REGISTER
+    }
+};
+
+export const checkLoggedIn = () => (dispatch, getState) => {
+    const token = getState().auth.token;
+    if (token !== "null" && token && token !== "undefined") {
+        dispatch({
+            type: IS_LOGGED_IN,
+            payload: true
+        })
+    } else {
+        dispatch({
+            type: IS_LOGGED_IN,
+            payload: false
+        })
+    }
+};
+
+export const getLogout = () => {
+    return {
+        type: GET_LOGOUT
     }
 };
