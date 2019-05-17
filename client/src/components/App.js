@@ -6,6 +6,7 @@ import {getGeoPosition} from "../actions/locationAction";
 import Login from './Login';
 import Register from './Register'
 import Platform from './Platform'
+import VerifikasiEmail from "./VerifikasiEmail";
 
 class App extends Component {
 
@@ -21,6 +22,7 @@ class App extends Component {
                         <Route path="/login" exact component={Login}/>
                         <Route path="/register" exact component={Register}/>
                         <Route path="/dashboard" exact component={Platform}/>
+                        <Route path="/verifikasi/:token" exact component={VerifikasiEmail}/>
                     </Fragment>
                 </BrowserRouter>
             </Fragment>

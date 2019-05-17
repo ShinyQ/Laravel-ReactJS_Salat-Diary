@@ -26,7 +26,7 @@ class Platform extends Component {
                             minHeight: 280,
                         }}
                     >
-                        Content
+
                     </Content>
                 </Layout>
             </Layout>

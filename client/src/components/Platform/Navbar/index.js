@@ -1,42 +1,47 @@
 import React, {Component} from 'react';
-import {Avatar, Dropdown, Layout, Menu} from "antd";
+import {Avatar, Drawer, Layout} from "antd";
+import {connect} from 'react-redux';
+
+import {toggleDrawer} from "../../../actions/widgetAction";
+import ProfileDrawer from "../ProfileDrawer";
 
 const {Header, Sider, Content} = Layout;
 
 
 class Navbar extends Component {
 
-    menu = () => (
-        <Menu style={{minWidth: '200px'}}>
-            <div style={{padding: '11px'}}>
-                bukanavatar
-            </div>
-            <Menu.Divider/>
-            <Menu.Item key="0">
-                <a target="_blank" rel="noopener noreferrer" href="http://www.taobao.com/">
-                    Account
-                </a>
-            </Menu.Item>
-            <Menu.Item key="1">
-                <a target="_blank" rel="noopener noreferrer" href="http://www.taobao.com/">
-                    Logout
-                </a>
-            </Menu.Item>
-        </Menu>
-    );
+    toggleDrawer = () => {
+        this.props.toggleDrawer();
+    };
+
+    componentDidMount() {
+
+    }
 
     render() {
         return (
             <Header style={{background: '#fff', padding: 0}}>
                 <div className="trigger">
-                    <Dropdown overlay={this.menu}>
-                        <Avatar shape="circle" size="large" icon="user"/>
-                    </Dropdown>
-
+                    <Avatar shape="circle" size="large" icon="user" onClick={this.toggleDrawer}/>
                 </div>
+                <Drawer
+                    title="Profile"
+                    placement="right"
+                    width={500}
+                    closable={false}
+                    onClose={this.toggleDrawer}
+                    visible={this.props.isDrawerOpen}
+                >
+                    <ProfileDrawer/>
+                </Drawer>
             </Header>
         );
     }
 }
 
-export default Navbar;
+const mapStateToProps = state => {
+    return {
+        isDrawerOpen: state.widget.isDrawerOpen
+    }
+};
+export default connect(mapStateToProps, {toggleDrawer})(Navbar);
