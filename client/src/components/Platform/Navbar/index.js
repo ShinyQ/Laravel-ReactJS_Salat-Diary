@@ -5,7 +5,7 @@ import {connect} from 'react-redux';
 import {toggleDrawer} from "../../../actions/widgetAction";
 import ProfileDrawer from "../ProfileDrawer";
 
-const {Header, Sider, Content} = Layout;
+const {Header} = Layout;
 
 
 class Navbar extends Component {
@@ -13,10 +13,6 @@ class Navbar extends Component {
     toggleDrawer = () => {
         this.props.toggleDrawer();
     };
-
-    componentDidMount() {
-
-    }
 
     render() {
         return (

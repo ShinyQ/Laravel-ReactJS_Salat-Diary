@@ -1,20 +1,22 @@
+//Load Presisted State From localstorage
 export const loadState = () => {
     try {
-        const serializedState = localStorage.getItem('state');
+        const state = {};
+        const serializedState = localStorage.getItem('token');
         if (serializedState == null) {
             return undefined
         }
-        return JSON.parse(serializedState);
+        return {...state, auth: {token: serializedState}};
     } catch (e) {
         console.log(e);
         return undefined;
     }
 };
 
-export const saveState = (state) => {
+// Saving Presisted State to LocalStorage
+export const saveState = (token) => {
     try {
-        const serializedState = JSON.stringify(state);
-        localStorage.setItem('state', serializedState);
+        localStorage.setItem('token', token);
     } catch {
         // ignore write errors
     }

@@ -17,10 +17,9 @@ const presistedState = loadState();
 // Create Store with redux middleware
 const store = createStore(reducers, presistedState, composeEnhancers(applyMiddleware(thunk)));
 
+
 store.subscribe(() => {
-    saveState({
-        auth: store.getState().auth
-    });
+    saveState(store.getState().auth.token);
 });
 
 ReactDOM.render(
