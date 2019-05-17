@@ -7,12 +7,21 @@ import thunk from 'redux-thunk';
 import reducers from './reducers';
 import App from './components/App';
 import * as serviceWorker from './serviceWorker';
+import {loadState, saveState} from "./localStorage";
 
 // Using Redux Devtools Extension
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
+const presistedState = loadState();
+
 // Create Store with redux middleware
-const store = createStore(reducers, composeEnhancers(applyMiddleware(thunk)));
+const store = createStore(reducers, presistedState, composeEnhancers(applyMiddleware(thunk)));
+
+store.subscribe(() => {
+    saveState({
+        auth: store.getState().auth
+    });
+});
 
 ReactDOM.render(
     <Provider store={store}>

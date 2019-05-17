@@ -14,7 +14,7 @@ class Login extends Component {
         if (this.props.isJustRegister) {
             notification.open({
                 message: 'Berhasil Registrasi',
-                description: 'Silahkan Login untuk melanjutkan',
+                description: 'Silahkan buka E-mail untuk melaukan verifikasi',
                 icon: <Icon type="check" style={{color: '#108ee9'}}/>,
             });
             this.props.resetIsJustRegister();

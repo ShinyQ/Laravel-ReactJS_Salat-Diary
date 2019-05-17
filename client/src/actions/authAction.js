@@ -9,10 +9,14 @@ import {GET_LOGIN, GET_REGISTER, RESET_IS_JUST_REGISTER} from "../constant";
  *
  */
 export const getLogin = (email, password) => async dispatch => {
-    const response = await shalatDiary.post('/api/login', {email, password});
+    try {
+        const response = await shalatDiary.post('/api/login', {email, password});
 
-    console.log(response.data);
-    dispatch({type: GET_LOGIN, payload: response.data});
+        console.log(response.data);
+        dispatch({type: GET_LOGIN, payload: response.data.data});
+    } catch (e) {
+        console.log(e.response)
+    }
 };
 
 /**
@@ -27,7 +31,7 @@ export const getRegister = (userData, redirectOnSuccess) => async dispatch => {
         dispatch({type: GET_REGISTER, payload: response.data});
         redirectOnSuccess();
     } catch (e) {
-        console.log(e.message);
+        console.log(e.response);
     }
 };
 
