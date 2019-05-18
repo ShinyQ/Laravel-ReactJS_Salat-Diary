@@ -3,10 +3,8 @@
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 use Illuminate\Support\Str;
 use Faker\Generator as Faker;
-use App\DataSalat;
-use App\StatusSalat;
 use App\JadwalSalat;
-use App\User;
+
 /*
 |--------------------------------------------------------------------------
 | Model Factories
@@ -18,17 +16,8 @@ use App\User;
 |
 */
 
-$factory->define(DataSalat::class, function (Faker $faker) {
+$factory->define(JadwalSalat::class, function (Faker $faker) {
     return [
-        'id_user'=>function(){
-          return User::all()->random();
-        },
-        'id_status'=>function(){
-          return StatusSalat::all()->random();
-        },
-        'id_jadwal'=>function(){
-          return JadwalSalat::all()->random();
-        },
-        'tanggal' => $faker->date($format = 'Y-m-d', $min ='now', $max= '2019-6-31'),
+        'nama' => $faker->unique()->randomElement(['subuh','duhur','asar','magrib','isya'])
     ];
 });
