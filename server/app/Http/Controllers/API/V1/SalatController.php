@@ -25,7 +25,15 @@ class SalatController extends Controller
       try {
         $code = 200;
         $message = "success";
-        $response = DataSalat::query()->where('id_user', \Auth::user()->id);
+        $response = DataSalat::query()->where('id_user', \Auth::user()->id)->latest();
+
+        if (request()->has("tanggal") && strlen(request()->query("tanggal")) >= 1) {
+          $response->where('tanggal', request()->query("tanggal"));
+        }
+
+        if (request()->has("start_at") && strlen(request()->query("start_at")) >= 1) {
+          $response->whereBetween('tanggal', [request()->query("start_at"), request()->query("end_at")]);
+        }
 
         $counter = 1;
         $pagination = 5;
@@ -187,7 +195,7 @@ class SalatController extends Controller
         $message = "success";
         $response = DataSalat::findOrFail($id);
         $response = $response->delete();
-        
+
       } catch (\Exception $e) {
         if($e instanceof ModelNotFoundException){
           $code= 200;
