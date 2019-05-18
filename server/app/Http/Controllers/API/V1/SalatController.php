@@ -25,7 +25,7 @@ class SalatController extends Controller
       try {
         $code = 200;
         $message = "success";
-        $response = DataSalat::query()->where('id_user', \Auth::user()->id)->latest();
+        $response = DataSalat::query();
 
         if (request()->has("tanggal") && strlen(request()->query("tanggal")) >= 1) {
           $response->where('tanggal', request()->query("tanggal"));
@@ -33,6 +33,15 @@ class SalatController extends Controller
 
         if (request()->has("start_at") && strlen(request()->query("start_at")) >= 1) {
           $response->whereBetween('tanggal', [request()->query("start_at"), request()->query("end_at")]);
+        }
+
+        $columns = ['subuh', 'zuhur', 'asar', 'magrib', 'isya'];
+
+        if (request()->has("status") && strlen(request()->query("status")) >= 1) {
+              $response->where(function($query) {
+              $query->where('id_user', \Auth::user()->id);
+          })->orWhere('subuh', request()->query("status") )->get();
+
         }
 
         $counter = 1;
@@ -156,13 +165,7 @@ class SalatController extends Controller
                 'tanggal'   => 'required|date'
           ]);
           $response = DataSalat::findOrFail($id);
-          $response->id_user = $request->id_user;
-          $response->tanggal = $request->tanggal;
-          $response->subuh = $request->subuh;
-          $response->zuhur = $request->zuhur;
-          $response->asar = $request->asar;
-          $response->magrib = $request->magrib;
-          $response->isya = $request->isya;
+          $response->update($request->all());
 
           $response->save();
           $code = 200;
