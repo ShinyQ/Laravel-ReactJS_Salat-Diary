@@ -12,3 +12,7 @@ export const RESET_IS_JUST_REGISTER = 'RESET_IS_JUST_REGISTER';
 export const TOGGLE_DRAWER = 'TOGGLE_DRAWER';
 export const IS_LOGGED_IN = 'IS_LOGGED_IN';
 export const GET_LOGOUT = 'GET_LOGOUT';
+export const START_LOADING = 'START_LOADING';
+export const STOP_LOADING = 'STOP_LOADING';
+export const GET_AUTH_ERROR = 'GET_AUTH_ERROR';
+export const RESET_AUTH_ERROR = 'RESET_AUTH_ERROR';

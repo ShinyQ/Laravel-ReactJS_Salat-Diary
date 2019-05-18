@@ -1,5 +1,15 @@
 import shalatDiary from '../apis/shalatDiary';
-import {GET_LOGIN, GET_LOGOUT, GET_REGISTER, IS_LOGGED_IN, RESET_IS_JUST_REGISTER} from "../constant";
+import {
+    GET_AUTH_ERROR,
+    GET_LOGIN,
+    GET_LOGOUT,
+    GET_REGISTER,
+    IS_LOGGED_IN,
+    RESET_AUTH_ERROR,
+    RESET_IS_JUST_REGISTER,
+    START_LOADING,
+    STOP_LOADING
+} from "../constant";
 
 /**
  * Login Action used for login authentication
@@ -10,10 +20,11 @@ import {GET_LOGIN, GET_LOGOUT, GET_REGISTER, IS_LOGGED_IN, RESET_IS_JUST_REGISTE
  */
 export const getLogin = (email, password) => async dispatch => {
     try {
+        await dispatch({type: START_LOADING});
         const response = await shalatDiary.post('/api/login', {email, password});
-
         console.log(response.data);
-        dispatch({type: GET_LOGIN, payload: response.data.data});
+        await dispatch({type: GET_LOGIN, payload: response.data.data});
+        dispatch({type: STOP_LOADING});
     } catch (e) {
         console.log(e.response)
     }
@@ -27,11 +38,15 @@ export const getLogin = (email, password) => async dispatch => {
  */
 export const getRegister = (userData, redirectOnSuccess) => async dispatch => {
     try {
+        await dispatch({type: START_LOADING});
         const response = await shalatDiary.post('/api/register', {...userData});
-        dispatch({type: GET_REGISTER, payload: response.data});
+        await dispatch({type: GET_REGISTER, payload: response.data});
+        dispatch({type: STOP_LOADING});
+        dispatch({type: RESET_AUTH_ERROR});
         redirectOnSuccess();
     } catch (e) {
-        console.log(e.response);
+        dispatch({type: STOP_LOADING});
+        dispatch({type: GET_AUTH_ERROR, payload: e.response.data.data.errors[0]});
     }
 };
 

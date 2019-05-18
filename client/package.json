@@ -19,6 +19,7 @@
     "react-scripts": "2.1.8",
     "redux": "^4.0.1",
     "redux-form": "^8.2.0",
+    "redux-form-validators": "^3.3.2",
     "redux-thunk": "^2.3.0"
   },
   "scripts": {
