@@ -50,6 +50,20 @@ class Login extends Component {
         this.checkLoggedIn()
     }
 
+    renderButtonLogin = () => {
+        if (this.props.isLoading) {
+            return (
+                <Button type="primary" htmlType="submit"
+                        className="login-form-button" loading>Login</Button>
+            )
+        } else {
+            return (
+                <Button type="primary" htmlType="submit"
+                        className="login-form-button">Login</Button>
+            )
+        }
+    };
+
     render() {
         return (
             <Fragment>
@@ -71,8 +85,7 @@ class Login extends Component {
                                                    icon="lock"/>
                                         </Form.Item>
                                         <Form.Item>
-                                            <Button type="primary" htmlType="submit"
-                                                    className="login-form-button">Login</Button>
+                                            {this.renderButtonLogin()}
                                         </Form.Item>
                                     </Form>
 
@@ -96,6 +109,7 @@ const formWrapped = reduxForm({
 
 const mapStateToProps = state => {
     return {
+        isLoading: state.global.isLoading,
         isJustRegister: state.auth.isJustRegister,
         isLoggedIn: state.auth.isLoggedIn
     }
