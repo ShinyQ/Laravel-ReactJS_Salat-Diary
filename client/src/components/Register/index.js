@@ -1,11 +1,13 @@
-import React, {Component} from 'react';
+import React, {Component, Fragment} from 'react';
 import {connect} from 'react-redux';
 import {Field, reduxForm} from 'redux-form';
 import {Link, withRouter} from "react-router-dom";
+import {email, length, required} from 'redux-form-validators';
 
-import {Button, Card, Col, Form, Input, Radio, Row, Select} from 'antd';
 
-import {getRegister} from "../../actions/authAction";
+import {Alert, Button, Card, Col, Form, Icon, Input, notification, Radio, Row, Select} from 'antd';
+
+import {checkLoggedIn, getRegister} from "../../actions/authAction";
 import {getKabupaten, getProvinsi} from "../../actions/locationAction";
 import AuthDecorPage from "../Other/AuthDecorPage";
 import './style.less';
@@ -13,35 +15,66 @@ import './style.less';
 
 class Register extends Component {
 
+    checkLoggedIn = async () => {
+
+        //Check If User is Already Logged In
+        await this.props.checkLoggedIn();
+        this.isLoggedIn = this.props.isLoggedIn;
+
+        if (this.isLoggedIn) {
+            this.props.history.push('/dashboard');
+        }
+    };
+
     // Redirect when register is successful
     handleRedirect = () => {
         this.props.history.push('/login')
     };
+
+
     // Rendering input type text for Redux Form
-    renderInputText = ({input, tipe, icon}) => {
+    renderInputText = ({input, tipe, icon, meta: {touched, error}}) => {
         return (
-            <Input
-                {...input}
-                type={tipe}
-                placeholder={input.name.charAt(0).toUpperCase() + input.name.slice(1)}
-            />
+            <Fragment>
+                {touched && ((error && <Alert
+                    message={`${input.name} ${error}`}
+                    type="error"
+                />))}
+                <Input
+                    {...input}
+                    type={tipe}
+                    placeholder={input.name.charAt(0).toUpperCase() + input.name.slice(1)}
+                />
+            </Fragment>
         )
     };
     // Rendering input type password for Redux Form
-    renderInputPassword = ({input}) => {
+    renderInputPassword = ({input, meta: {touched, error}}) => {
         return (
-            <Input.Password
-                {...input}
-                placeholder={input.name.charAt(0).toUpperCase() + input.name.slice(1)}
-            />
+            <Fragment>
+                {touched && ((error && <Alert
+                    message={`${input.name} ${error}`}
+                    type="error"
+                />))}
+                <Input.Password
+                    {...input}
+                    placeholder={input.name.charAt(0).toUpperCase() + input.name.slice(1)}
+                />
+            </Fragment>
         )
     };
     // Rendering input type Radio for Redux Form
-    renderInputRadio = ({input, meta, children}) => {
+    renderInputRadio = ({input, meta, children, meta: {touched, error}}) => {
         return (
-            <Radio.Group {...input}>
-                {children}
-            </Radio.Group>
+            <Fragment>
+                {touched && ((error && <Alert
+                    message={`gender ${error}`}
+                    type="error"
+                />))}
+                <Radio.Group {...input}>
+                    {children}
+                </Radio.Group>
+            </Fragment>
         )
     };
 
@@ -86,13 +119,37 @@ class Register extends Component {
     onSubmit = (formValues) => {
         this.props.getRegister(formValues, this.handleRedirect)
     };
+    renderButtonRegister = () => {
+        if (this.props.isLoading) {
+            return (
+                <Button type="primary" htmlType="submit"
+                        className="login-form-button" loading>Register</Button>
+            )
+        } else {
+            return (
+                <Button type="primary" htmlType="submit"
+                        className="login-form-button">Register</Button>
+            )
+        }
+    };
 
-    componentDidMount() {
+    async componentDidMount() {
+        await this.checkLoggedIn();
         this.props.getProvinsi();
     }
 
     render() {
         const isKabupaten = !!!this.props.kabupaten;
+
+        //Send Error Notification
+        if (this.props.errorAuth !== null) {
+            notification.open({
+                message: 'Error',
+                description: this.props.errorAuth,
+                icon: <Icon type="warning" style={{color: '#FF0000'}}/>,
+            });
+        }
+
         return (
             <Row>
                 <Col span={12}>
@@ -105,10 +162,12 @@ class Register extends Component {
                                 <h1>Register</h1>
                                 <Form onSubmit={this.props.handleSubmit(this.onSubmit)} className="login-form">
                                     <Form.Item label="Name" className="formItemRegister">
-                                        <Field name="name" component={this.renderInputText} tipe="text" icon="user"/>
+                                        <Field name="name" component={this.renderInputText} tipe="text" icon="user"
+                                               validate={[required()]}/>
                                     </Form.Item>
                                     <Form.Item label="Gender" className="formItemRegister">
-                                        <Field name="jenis_kelamin" component={this.renderInputRadio}>
+                                        <Field name="jenis_kelamin" component={this.renderInputRadio}
+                                               validate={[required()]}>
                                             <Radio value="akhi">Akhi</Radio>
                                             <Radio value="ukhti">Ukhti</Radio>
                                         </Field>
@@ -117,7 +176,7 @@ class Register extends Component {
                                         <Col span={12}>
                                             <Form.Item label="Provinsi">
                                                 <Field name="provinsi" component={this.renderInputSelect}
-                                                       disabled={false}>
+                                                       disabled={false} validate={[required()]}>
                                                     {this.renderListProvinsi()}
                                                 </Field>
                                             </Form.Item>
@@ -125,23 +184,23 @@ class Register extends Component {
                                         <Col span={12}>
                                             <Form.Item label="Kota/Kabupaten" className="formItemRegister">
                                                 <Field name="kota" component={this.renderInputSelect}
-                                                       disabled={isKabupaten}>
+                                                       disabled={isKabupaten} validate={[required()]}>
                                                     {this.renderListKabupaten()}
                                                 </Field>
                                             </Form.Item>
                                         </Col>
                                     </Row>
                                     <Form.Item label="Email" className="formItemRegister">
-                                        <Field name="email" component={this.renderInputText} tipe="email" icon="mail"/>
+                                        <Field name="email" component={this.renderInputText} tipe="email" icon="mail"
+                                               validate={[required(), email()]}/>
                                     </Form.Item>
 
                                     <Form.Item label="Password" className="formItemRegister">
                                         <Field name="password" component={this.renderInputPassword} tipe="password"
-                                               icon="lock"/>
+                                               icon="lock" validate={[required(), length({min: 8})]}/>
                                     </Form.Item>
                                     <Form.Item className="formItemRegister">
-                                        <Button type="primary" htmlType="submit"
-                                                className="login-form-button">Register</Button>
+                                        {this.renderButtonRegister()}
                                     </Form.Item>
                                 </Form>
 
@@ -165,9 +224,17 @@ const formWrapped = reduxForm({
 
 const mapStateToProps = state => {
     return {
+        isLoading: state.global.isLoading,
+        errorAuth: state.auth.error,
         provinsi: state.location.provinsi,
         kabupaten: state.location.kabupaten,
+        isLoggedIn: state.auth.isLoggedIn
     }
 };
 
-export default withRouter(connect(mapStateToProps, {getRegister, getKabupaten, getProvinsi})(formWrapped))
+export default withRouter(connect(mapStateToProps, {
+    getRegister,
+    getKabupaten,
+    getProvinsi,
+    checkLoggedIn
+})(formWrapped))

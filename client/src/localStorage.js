@@ -1,12 +1,20 @@
 //Load Presisted State From localstorage
 export const loadState = () => {
     try {
-        const state = {};
+        const auth = {
+            isJustRegister: null,
+            error: null,
+        };
+
+        const state = {
+            auth: auth
+        };
+
         const serializedState = localStorage.getItem('token');
         if (serializedState == null) {
             return undefined
         }
-        return {...state, auth: {token: serializedState}};
+        return {...state, auth: {...auth, token: serializedState}};
     } catch (e) {
         console.log(e);
         return undefined;
