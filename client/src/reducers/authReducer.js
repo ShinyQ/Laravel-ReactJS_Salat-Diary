@@ -1,5 +1,6 @@
 import {
     GET_AUTH_ERROR,
+    GET_CURRENT_USER,
     GET_LOGIN,
     GET_LOGOUT,
     GET_REGISTER,
@@ -29,6 +30,8 @@ export default (state = INITIAL_STATE, action) => {
             return {...state, error: action.payload};
         case RESET_AUTH_ERROR:
             return {...state, error: null};
+        case GET_CURRENT_USER:
+            return {...state, user: action.payload};
         default:
             return state
     }

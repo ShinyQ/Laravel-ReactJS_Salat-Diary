@@ -18,3 +18,4 @@ export const GET_AUTH_ERROR = 'GET_AUTH_ERROR';
 export const RESET_AUTH_ERROR = 'RESET_AUTH_ERROR';
 export const SET_JADWAL_SALAT = 'SET_JADWAL_SALAT';
 export const SET_SALAT_NOW = 'SET_SALAT_NOW';
+export const GET_CURRENT_USER = 'GET_CURRENT_USER';

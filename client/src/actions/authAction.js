@@ -1,6 +1,7 @@
 import shalatDiary from '../apis/shalatDiary';
 import {
     GET_AUTH_ERROR,
+    GET_CURRENT_USER,
     GET_LOGIN,
     GET_LOGOUT,
     GET_REGISTER,
@@ -97,6 +98,7 @@ export const getLogout = () => {
 };
 
 export const getCurrentUser = () => async (dispatch, getState) => {
+    await dispatch({type: START_LOADING});
     const response = await shalatDiary.get('/api/v1/user', {
         headers: {
             Accept: 'application/json',
@@ -104,5 +106,6 @@ export const getCurrentUser = () => async (dispatch, getState) => {
         }
     });
 
-    console.log(response);
+    await dispatch({type: GET_CURRENT_USER, payload: response.data.data});
+    dispatch({type: STOP_LOADING});
 };
