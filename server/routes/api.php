@@ -25,7 +25,7 @@ Route::get('/verifikasi/{id}', 'API\V1\Auth\RegisterController@verifyUser');
 
         Route::apiResource("salat", "API\V1\SalatController");
         Route::apiResource("status", "API\V1\StatusController");
-        Route::apiResource("jadwal", "API\V1\StatusController");
+        Route::apiResource("jadwal", "API\V1\JadwalController");
       });
   });
 });
