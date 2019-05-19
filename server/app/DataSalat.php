@@ -12,7 +12,7 @@ class DataSalat extends Model
 {
    use SoftDeletes;
 
-   protected $fillable = ['id_user', 'subuh', 'zuhur', 'asar', 'magrib', 'isya', 'tanggal'];
+   protected $fillable = ['id_user', 'id_jadwal', 'id_status', 'tanggal'];
 
    public function user()
    {
