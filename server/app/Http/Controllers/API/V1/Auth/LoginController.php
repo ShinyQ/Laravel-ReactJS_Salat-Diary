@@ -37,6 +37,14 @@ class LoginController extends Controller
     }
   }
 
+  public function getUser()
+ {
+   $user = Auth::user();
+   // $id = Auth::id();
+   return ApiBuilder::apiResponseSuccess('success', $user, 200);
+ }
+
+
   public function logout()
   {
     Auth::logout();

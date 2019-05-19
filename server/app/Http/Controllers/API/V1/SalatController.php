@@ -6,11 +6,12 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Validation\ValidationException;
+use App\Http\Resources\DataSalatResource;
+use App\Http\Resources\DataSalatCollection;
 use Exception;
 use ApiBuilder;
 use App\DataSalat;
-use App\Http\Resources\DataSalatResource;
-use App\Http\Resources\DataSalatCollection;
+use Carbon\Carbon;
 
 
 class SalatController extends Controller
@@ -23,6 +24,8 @@ class SalatController extends Controller
     public function index()
     {
       try {
+        $tanggal = Carbon::now()->format('Y-m-d');
+
         $code = 200;
         $message = "success";
         $response = DataSalat::query()->where('id_user', \Auth::user()->id);
@@ -37,6 +40,10 @@ class SalatController extends Controller
 
         if (request()->has("status") && strlen(request()->query("status")) >= 1) {
           $data = $response->where('id_status', request()->query("status"))->get();
+        }
+
+        if (request()->has("today")) {
+          $response->where('tanggal', $tanggal);
         }
 
         $counter = 1;
