@@ -1,7 +1,8 @@
 import {START_LOADING, STOP_LOADING} from "../constant";
 
 const INITIAL_STATE = {
-    isLoading: false
+    isLoading: false,
+    todayDate: new Date()
 };
 
 export default (state = INITIAL_STATE, action) => {
