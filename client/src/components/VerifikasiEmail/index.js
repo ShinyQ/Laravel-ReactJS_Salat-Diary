@@ -21,6 +21,6 @@ class VerifikasiEmail extends Component {
     }
 }
 
-const connectWrapped = connect(null,{getEmailValidation})(VerifikasiEmail);
+const connectWrapped = connect(null, {getEmailValidation})(VerifikasiEmail);
 
 export default withRouter(connectWrapped);

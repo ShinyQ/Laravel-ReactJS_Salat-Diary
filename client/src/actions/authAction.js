@@ -57,7 +57,7 @@ export const getEmailValidation = token => async dispatch => {
     } catch (e) {
         console.log(e.response.data)
     }
-}
+};
 
 /**
  * Flag to check if user just registered
@@ -97,12 +97,12 @@ export const getLogout = () => {
 };
 
 export const getCurrentUser = () => async (dispatch, getState) => {
-    const response = await shalatDiary.get('/api/v1/user',{
-        headers:{
-            Accept:'application/json',
-            Authorization:`Bearer ${getState().auth.token}`
+    const response = await shalatDiary.get('/api/v1/user', {
+        headers: {
+            Accept: 'application/json',
+            Authorization: `Bearer ${getState().auth.token}`
         }
     });
 
     console.log(response);
-}
+};
