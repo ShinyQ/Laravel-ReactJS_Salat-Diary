@@ -1,25 +1,32 @@
 import React, {Component} from 'react';
+import {Link, withRouter} from 'react-router-dom';
 import {Icon, Layout, Menu} from "antd";
+
+import './style.less';
 
 const {Sider} = Layout;
 
 class Sidebar extends Component {
     render() {
         return (
-            <Sider collapsed={true} breakpoint="lg">
+            <Sider breakpoint="md" collapsedWidth={0} className="sider">
                 <div className="logo"/>
-                <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']}>
-                    <Menu.Item key="1">
+                <Menu theme="dark" mode="inline" activeKey={this.props.location.pathname}
+                      selectedKeys={[this.props.location.pathname]}>
+                    <Menu.Item key="/dashboard">
                         <Icon type="user"/>
-                        <span>nav 1</span>
+                        <span>Home</span>
+                        <Link to={`${this.props.match.url}`}/>
                     </Menu.Item>
-                    <Menu.Item key="2">
+                    <Menu.Item key="/dashboard/salat">
                         <Icon type="video-camera"/>
-                        <span>nav 2</span>
+                        <span>Data Salat</span>
+                        <Link to={`${this.props.match.url}/salat`}/>
                     </Menu.Item>
-                    <Menu.Item key="3">
+                    <Menu.Item key="/dashboard/jadwal">
                         <Icon type="upload"/>
-                        <span>nav 3</span>
+                        <span>Jadwal Salat</span>
+                        <Link to={`${this.props.match.url}/jadwal`}/>
                     </Menu.Item>
                 </Menu>
             </Sider>
@@ -27,4 +34,4 @@ class Sidebar extends Component {
     }
 }
 
-export default Sidebar;
+export default withRouter(Sidebar);

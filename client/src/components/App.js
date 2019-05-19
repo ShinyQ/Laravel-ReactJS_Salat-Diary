@@ -8,6 +8,7 @@ import Register from './Register'
 import Platform from './Platform'
 import VerifikasiEmail from "./VerifikasiEmail";
 
+
 class App extends Component {
 
     componentDidMount() {
@@ -21,7 +22,7 @@ class App extends Component {
                     <Fragment>
                         <Route path="/login" exact component={Login}/>
                         <Route path="/register" exact component={Register}/>
-                        <Route path="/dashboard" exact component={Platform}/>
+                        <Route path="/dashboard" component={Platform}/>
                         <Route path="/verifikasi/:token" exact component={VerifikasiEmail}/>
                     </Fragment>
                 </BrowserRouter>

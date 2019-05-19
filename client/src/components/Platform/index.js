@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {Layout} from 'antd';
+import {Route} from 'react-router-dom';
 import {connect} from 'react-redux'
 
 import {checkLoggedIn} from "../../actions/authAction";
@@ -7,6 +8,9 @@ import {checkLoggedIn} from "../../actions/authAction";
 import './style.less';
 import Sidebar from "./Sidebar";
 import Navbar from "./Navbar";
+import JadwalShalat from "./JadwalShalat";
+import Home from "./Home";
+import DataSalat from "./DataSalat";
 
 const {Content} = Layout;
 
@@ -35,15 +39,11 @@ class Platform extends Component {
                 <Sidebar/>
                 <Layout>
                     <Navbar/>
-                    <Content
-                        style={{
-                            margin: '24px 16px',
-                            padding: 24,
-                            background: '#fff',
-                            minHeight: 280,
-                        }}
-                    >
-
+                    <Content className="platformContainer">
+                        {/*<Route path={`${this.props.match.url}`} exact component={Topic}/>*/}
+                        <Route path={`${this.props.match.url}/jadwal`} exact component={JadwalShalat}/>
+                        <Route path={`${this.props.match.url}`} exact component={Home}/>
+                        <Route path={`${this.props.match.url}/salat`} exact component={DataSalat}/>
                     </Content>
                 </Layout>
             </Layout>

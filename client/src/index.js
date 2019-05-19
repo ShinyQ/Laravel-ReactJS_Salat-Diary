@@ -19,7 +19,11 @@ const store = createStore(reducers, presistedState, composeEnhancers(applyMiddle
 
 
 store.subscribe(() => {
-    saveState(store.getState().auth.token);
+    saveState(
+        store.getState().auth.token,
+        store.getState().location.lat,
+        store.getState().location.long
+    );
 });
 
 ReactDOM.render(

@@ -6,15 +6,24 @@ export const loadState = () => {
             error: null,
         };
 
-        const state = {
-            auth: auth
+        const location = {
+            error: null,
+            provinsi: null,
+            kabupaten: null
         };
 
-        const serializedState = localStorage.getItem('token');
-        if (serializedState == null) {
+        const state = {
+            auth: auth,
+            location: location
+        };
+
+        const token = localStorage.getItem('token');
+        const lat = localStorage.getItem('lat');
+        const long = localStorage.getItem('long');
+        if (token == null) {
             return undefined
         }
-        return {...state, auth: {...auth, token: serializedState}};
+        return {...state, auth: {...auth, token}, location: {...location, lat, long}};
     } catch (e) {
         console.log(e);
         return undefined;
@@ -22,9 +31,11 @@ export const loadState = () => {
 };
 
 // Saving Presisted State to LocalStorage
-export const saveState = (token) => {
+export const saveState = (token, lat, long) => {
     try {
         localStorage.setItem('token', token);
+        localStorage.setItem('lat', lat);
+        localStorage.setItem('long', long);
     } catch {
         // ignore write errors
     }
