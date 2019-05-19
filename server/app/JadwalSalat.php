@@ -8,5 +8,5 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class JadwalSalat extends Model
 {
   use SoftDeletes;
-  protected $fillable = ['name'];
+  protected $fillable = ['nama'];
 }
