@@ -1,45 +1,40 @@
 <html>
   <head>
       <title>Konfirmasi Email</title>
+      <style>
+      .button {
+          background-color: #56d2b7; /* Green */
+          border: none;
+          color: white!important;
+          padding: 15px 32px;
+          text-align: center;
+          text-decoration: none;
+          display: inline-block;
+          font-size: 16px;
+          margin: 4px 2px;
+          cursor: pointer;
+        }
+
+      .p-font{
+        font-size: 16px;
+        color:black;
+      }
+      </style>
   </head>
 
   <body style="font-family:-apple-system, '.SFNSText-Regular', 'Helvetica Neue', Roboto, 'Segoe UI', sans-serif; color: #666666; background:white; text-decoration: none;">
-    <style>
-      .btn{
-        display: inline-block;
-        font-weight: 400;
-        text-align: center;
-        white-space: nowrap;
-        vertical-align: middle;
-        user-select: none;
-        border: 1px solid transparent;
-        padding: .375rem .75rem;
-        font-size: 1rem;
-        line-height: 1.5;
-        border-radius: .25rem;
-        transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
-      }
 
-      .btn-primary {
-      color: #fff;
-      background-color: #007bff;
-      border-color: #007bff;
-      }
-    </style>
-    <div class="container" style="margin-top:50px;">
+    <div class="container">
       <div class="card">
         <div class="card-body">
           <center>
-            <img src="{{ $message->embed(public_path() . '/img/logo.png') }}" width="200px;"/><br /><br />
-            <h2>Hello, {{$user['name']}}</h2>
-            <br/>
-            Alamat Email Kamu : {{$user['email']}}, Telah Berhasil Diregistrasi, <br /> Klik Link Dibawah Untuk Melakukan Konfirmasi
-            <br/><br/>
-            <a class="btn btn-primary" href="{{url('user/verify', $user->token)}}">Verifikasi Email</a><br />
+            <img src="{{ $message->embed(public_path() . '/img/logo.png') }}" width="160px;"/>
+            <h2>Assalamualaikum, {{$user['name']}}</h2>
+            <p class="p-font">Alamat Email Kamu : {{$user['email']}}, Telah Berhasil Diregistrasi, <br /> Klik Link Dibawah Untuk Melakukan Verifikasi Email</p>
+            <a class="button" href="http://localhost:3000/verifikasi/{{ $user->token }}">Verifikasi Email</a><br />
           </div>
           </center>
       </div>
     </div>
   </body>
-
 </html>

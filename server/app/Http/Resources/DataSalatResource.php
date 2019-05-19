@@ -17,15 +17,15 @@ class DataSalatResource extends JsonResource
       return [
         'id' => $this->id,
         'tanggal' => date("j F Y", strtotime($this->tanggal)),
-        'subuh' => $this->subuh,
-        'zuhur' => $this->zuhur,
-        'asar' => $this->asar,
-        'magrib' => $this->magrib,
-        'isya' => $this->isya,
+        'salat' => [
+                      'nama' => $this->jadwal->nama,
+                      'status' => $this->status->nama
+                    ],
+
         'user' => [
                      'id_user' => $this->id_user,
-                     'nama' =>  $this->users->nama,
-                     'email' => $this->users->email,
+                     'nama' =>  $this->user->nama,
+                     'email' => $this->user->email,
                  ],
         'created_at'=> (string) $this->created_at,
         'updated_at'=> (string) $this->updated_at,
