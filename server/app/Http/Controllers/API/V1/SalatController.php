@@ -90,10 +90,12 @@ class SalatController extends Controller
     {
       try{
           $this->validate($request, [
-                'id_user'  => 'required',
+                'id_jadwal'  => 'required',
+                'id_status'  => 'required',
                 'tanggal'   => 'required|date'
           ]);
           $response = new DataSalat($request->except("_token"));
+          $response->id_user = \Auth::user()->id;
           $response->save();
           $code = 200;
           $message = "success";
@@ -163,12 +165,13 @@ class SalatController extends Controller
     {
       try{
           $this->validate($request, [
-                'id_user'  => 'required',
+                'id_jadwal'  => 'required',
+                'id_status'  => 'required',
                 'tanggal'   => 'required|date'
           ]);
           $response = DataSalat::findOrFail($id);
           $response->update($request->all());
-
+          $response->id_user = \Auth::user()->id;
           $response->save();
           $code = 200;
           $message = "success";

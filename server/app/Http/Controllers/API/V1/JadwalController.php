@@ -11,7 +11,7 @@ use ApiBuilder;
 use App\JadwalSalat;
 
 
-class statusController extends Controller
+class JadwalController extends Controller
 {
     /**
      * Display a listing of the resource.
