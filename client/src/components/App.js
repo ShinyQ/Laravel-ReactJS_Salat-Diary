@@ -2,6 +2,7 @@ import React, {Component, Fragment} from 'react';
 import {connect} from 'react-redux';
 import {BrowserRouter, Route} from 'react-router-dom';
 import {getGeoPosition} from "../actions/locationAction";
+import {getJadwalShalat} from "../actions/jadwalShalatAction";
 
 import Login from './Login';
 import Register from './Register'
@@ -12,7 +13,10 @@ import VerifikasiEmail from "./VerifikasiEmail";
 class App extends Component {
 
     componentDidMount() {
+        const todayDate = new Date();
+
         this.props.getGeoPosition();
+        this.props.getJadwalShalat(todayDate.getMonth() + 1);
     }
 
     render() {
@@ -38,4 +42,4 @@ const mapStateToProps = state => {
     }
 };
 
-export default connect(mapStateToProps, {getGeoPosition})(App);
+export default connect(mapStateToProps, {getGeoPosition, getJadwalShalat})(App);

@@ -1,19 +1,16 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux'
 
-import {getJadwalShalat} from "../../../actions/jadwalShalatAction";
 import {getCurrentUser} from "../../../actions/authAction";
 
 class JadwalShalat extends Component {
 
     componentDidMount() {
-        const todayDate = new Date();
-
-        this.props.getJadwalShalat(todayDate.getMonth() + 1);
         this.props.getCurrentUser()
     }
 
     render() {
+        console.log(this.props.jadwalSalat);
         return (
             <div>
                 Meki
@@ -22,4 +19,10 @@ class JadwalShalat extends Component {
     }
 }
 
-export default connect(null, {getJadwalShalat, getCurrentUser})(JadwalShalat);
+const mapStateToProps = state => {
+    return {
+        jadwalSalat: state.dataSalat.jadwalSalat
+    }
+};
+
+export default connect(mapStateToProps, {getCurrentUser})(JadwalShalat);
