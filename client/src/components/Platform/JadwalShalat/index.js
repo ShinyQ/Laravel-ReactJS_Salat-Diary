@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux'
 
 import {getJadwalShalat} from "../../../actions/jadwalShalatAction";
+import {getCurrentUser} from "../../../actions/authAction";
 
 class JadwalShalat extends Component {
 
@@ -9,6 +10,7 @@ class JadwalShalat extends Component {
         const todayDate = new Date();
 
         this.props.getJadwalShalat(todayDate.getMonth() + 1);
+        this.props.getCurrentUser()
     }
 
     render() {
@@ -20,4 +22,4 @@ class JadwalShalat extends Component {
     }
 }
 
-export default connect(null, {getJadwalShalat})(JadwalShalat);
+export default connect(null, {getJadwalShalat, getCurrentUser})(JadwalShalat);

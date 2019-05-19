@@ -6,15 +6,12 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Validation\ValidationException;
-use App\Http\Resources\DataSalatResource;
-use App\Http\Resources\DataSalatCollection;
 use Exception;
 use ApiBuilder;
-use App\DataSalat;
-use Carbon\Carbon;
+use App\JadwalSalat;
 
 
-class SalatController extends Controller
+class statusController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -24,27 +21,9 @@ class SalatController extends Controller
     public function index()
     {
       try {
-        $tanggal = Carbon::now()->format('Y-m-d');
-
         $code = 200;
         $message = "success";
-        $response = DataSalat::query()->where('id_user', \Auth::user()->id);
-
-        if (request()->has("tanggal") && strlen(request()->query("tanggal")) >= 1) {
-          $response->where('tanggal', request()->query("tanggal"));
-        }
-
-        if (request()->has("start_at") && strlen(request()->query("start_at")) >= 1) {
-          $response->whereBetween('tanggal', [request()->query("start_at"), request()->query("end_at")]);
-        }
-
-        if (request()->has("status") && strlen(request()->query("status")) >= 1) {
-          $data = $response->where('id_status', request()->query("status"))->get();
-        }
-
-        if (request()->has("today")) {
-          $response->where('tanggal', $tanggal);
-        }
+        $response = JadwalSalat::query();
 
         $counter = 1;
         $pagination = 5;
@@ -53,7 +32,6 @@ class SalatController extends Controller
         if( request()->has('page') && request()->get('page') > 1){
             $counter += (request()->get('page')- 1) * $pagination;
           }
-        $response = new DataSalatCollection($response);
 
       } catch (\Exception $e) {
         if($e instanceof ModelNotFoundException){
@@ -90,10 +68,9 @@ class SalatController extends Controller
     {
       try{
           $this->validate($request, [
-                'id_user'  => 'required',
-                'tanggal'   => 'required|date'
+                'nama'  => 'required',
           ]);
-          $response = new DataSalat($request->except("_token"));
+          $response = new JadwalSalat($request->except("_token"));
           $response->save();
           $code = 200;
           $message = "success";
@@ -120,25 +97,7 @@ class SalatController extends Controller
      */
     public function show($id)
     {
-      try {
-        $code = 200;
-        $message = "success";
-        $response = DataSalat::findOrFail($id);
-        $response = new DataSalatResource($response);
 
-      } catch (\Exception $e) {
-        if($e instanceof ModelNotFoundException){
-          $code= 200;
-          $message = "Data Not Exist";
-          $response = [];
-        }
-        else{
-          $code= 500;
-          $message = $e->errors();
-          $response = [];
-        }
-      }
-      return ApiBuilder::apiRespond($code, $response, $message);
     }
 
     /**
@@ -163,10 +122,9 @@ class SalatController extends Controller
     {
       try{
           $this->validate($request, [
-                'id_user'  => 'required',
-                'tanggal'   => 'required|date'
+                'nama'  => 'required',
           ]);
-          $response = DataSalat::findOrFail($id);
+          $response = JadwalSalat::findOrFail($id);
           $response->update($request->all());
 
           $response->save();
@@ -195,24 +153,24 @@ class SalatController extends Controller
      */
     public function destroy($id)
     {
-      try {
-        $code = 200;
-        $message = "success";
-        $response = DataSalat::findOrFail($id);
-        $response = $response->delete();
-
-      } catch (\Exception $e) {
-        if($e instanceof ModelNotFoundException){
-          $code= 200;
-          $message = "Data Not Exist";
-          $response = [];
-        }
-        else{
-          $code= 500;
-          $message = $e->getMessage();
-          $response = [];
-        }
-      }
-      return ApiBuilder::apiRespond($code, $response, $message);
+      // try {
+      //   $code = 200;
+      //   $message = "success";
+      //   $response = JadwalSalat::findOrFail($id);
+      //   $response = $response->delete();
+      //
+      // } catch (\Exception $e) {
+      //   if($e instanceof ModelNotFoundException){
+      //     $code= 200;
+      //     $message = "Data Not Exist";
+      //     $response = [];
+      //   }
+      //   else{
+      //     $code= 500;
+      //     $message = $e->getMessage();
+      //     $response = [];
+      //   }
+      // }
+      // return ApiBuilder::apiRespond($code, $response, $message);
     }
 }

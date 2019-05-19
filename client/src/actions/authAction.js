@@ -50,11 +50,27 @@ export const getRegister = (userData, redirectOnSuccess) => async dispatch => {
     }
 };
 
+export const getEmailValidation = token => async dispatch => {
+    try {
+        const response = await shalatDiary.get(`/api/verifikasi/${token}`);
+        console.log(response)
+    } catch (e) {
+        console.log(e.response.data)
+    }
+}
+
+/**
+ * Flag to check if user just registered
+ */
 export const resetIsJustRegister = () => {
     return {
         type: RESET_IS_JUST_REGISTER
     }
 };
+
+/**
+ * Check if the user is still logged in
+ */
 
 export const checkLoggedIn = () => (dispatch, getState) => {
     const token = getState().auth.token;
@@ -71,8 +87,22 @@ export const checkLoggedIn = () => (dispatch, getState) => {
     }
 };
 
+/**
+ * Logout Action
+ */
 export const getLogout = () => {
     return {
         type: GET_LOGOUT
     }
 };
+
+export const getCurrentUser = () => async (dispatch, getState) => {
+    const response = await shalatDiary.get('/api/v1/user',{
+        headers:{
+            Accept:'application/json',
+            Authorization:`Bearer ${getState().auth.token}`
+        }
+    });
+
+    console.log(response);
+}

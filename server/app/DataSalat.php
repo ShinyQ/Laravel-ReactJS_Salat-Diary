@@ -14,18 +14,18 @@ class DataSalat extends Model
 
    protected $fillable = ['id_user', 'subuh', 'zuhur', 'asar', 'magrib', 'isya', 'tanggal'];
 
-   public function users()
+   public function user()
    {
       return $this->hasOne(User::class, 'id', 'id_user');
    }
 
    public function status()
    {
-      return $this->hasOne(User::class, 'id', 'id_user');
+      return $this->hasOne(StatusSalat::class, 'id', 'id_status');
    }
 
    public function jadwal()
    {
-      return $this->hasOne(User::class, 'id', 'id_user');
+      return $this->hasOne(JadwalSalat::class, 'id', 'id_jadwal');
    }
 }
