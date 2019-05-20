@@ -95,9 +95,9 @@ class SalatController extends Controller
                 'tanggal'   => 'required|date'
           ]);
 
-          $CheckData = DataSalat::where('id_user', \Auth::user()->id)->where('tanggal', $request->tanggal)->where('id_jadwal', $request->id_jadwal)->get();
+          $CheckData = DataSalat::where('id_user', \Auth::user()->id)->where('tanggal', $request->tanggal)->where('id_jadwal', $request->id_jadwal)->first();
 
-          if(!$CheckData){
+          if($CheckData == NULL){
             $response = new DataSalat($request->except("_token"));
             $response->id_user = \Auth::user()->id;
             $response->save();
