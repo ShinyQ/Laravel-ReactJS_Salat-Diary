@@ -8,7 +8,7 @@ import './style.less';
 import HeaderHome from "./HeaderHome";
 
 class Home extends Component {
-
+  
     state = {
         isLoading: true
     };
