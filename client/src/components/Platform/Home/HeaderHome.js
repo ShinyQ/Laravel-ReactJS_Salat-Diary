@@ -1,14 +1,14 @@
 import React, {Fragment} from 'react';
+import moment from 'moment';
+
 
 const HeaderHome = (props) => {
-  var today = new Date();
-  const months = ["Januari", "Februari", "Maret","April", "Mei", "Juni", "July", "Agustus", "September", "Oktober", "November", "Desember"];
-  var sekarang = today.getDate() +' '+ months[today.getMonth()] +' '+  today.getFullYear();
+    const dateNow = moment().locale('id').format('dddd, Do MMMM YYYY');
 
     return (
         <Fragment>
             <h1>
-                {sekarang}
+                {dateNow}
             </h1>
             <h3>Halo, {props.nama}</h3>
         </Fragment>
