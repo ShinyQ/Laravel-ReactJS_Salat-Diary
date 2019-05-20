@@ -94,11 +94,21 @@ class SalatController extends Controller
                 'id_status'  => 'required',
                 'tanggal'   => 'required|date'
           ]);
-          $response = new DataSalat($request->except("_token"));
-          $response->id_user = \Auth::user()->id;
-          $response->save();
-          $code = 200;
-          $message = "success";
+
+          $CheckData = DataSalat::where('id_user', \Auth::user()->id)->where('tanggal', $request->tanggal)->where('id_jadwal', $request->id_jadwal)->get();
+
+          if(!$CheckData){
+            $response = new DataSalat($request->except("_token"));
+            $response->id_user = \Auth::user()->id;
+            $response->save();
+            $code = 200;
+            $message = "success";
+          }
+          else{
+            $code = 200;
+            $message = "Data Dengan Jadwal Tersebut Sudah Ada";
+            $response = [];
+          }
 
       }catch (\Exception $e) {
         if ($e instanceof ValidationException) {
