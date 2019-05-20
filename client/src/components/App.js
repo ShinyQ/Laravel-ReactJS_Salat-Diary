@@ -1,6 +1,8 @@
 import React, {Component, Fragment} from 'react';
 import {connect} from 'react-redux';
 import {BrowserRouter, Route} from 'react-router-dom';
+import 'moment/locale/id'
+
 import {getGeoPosition} from "../actions/locationAction";
 import {getJadwalShalat} from "../actions/jadwalShalatAction";
 
