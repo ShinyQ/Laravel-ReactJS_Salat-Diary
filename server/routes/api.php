@@ -22,7 +22,8 @@ Route::get('/verifikasi/{id}', 'API\V1\Auth\RegisterController@verifyUser');
   Route::group(['middleware' => 'auth:api'], function () {
       Route::prefix('v1')->group(function(){
         Route::get('user', 'API\V1\Auth\LoginController@getUser');
-
+        Route::put('user', 'API\V1\Auth\RegisterController@updateUser');
+        
         Route::apiResource("salat", "API\V1\SalatController");
         Route::apiResource("status", "API\V1\StatusController");
         Route::apiResource("jadwal", "API\V1\JadwalController");
