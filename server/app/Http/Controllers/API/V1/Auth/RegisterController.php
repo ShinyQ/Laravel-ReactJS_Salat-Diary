@@ -32,15 +32,31 @@ class RegisterController extends Controller
           return ApiBuilder::apiResponseValidationFails('Validation error messages!', $validator->errors()->all());
       }
 
-      $user = User::create([
-          'name' => $request->name,
-          'email' => $request->email,
-          'password' => Bcrypt($request->password),
-          'jenis_kelamin' => $request->jenis_kelamin,
-          'provinsi' => $request->provinsi,
-          'kota' => $request->kota,
-          'token' => str_random(40)
-      ]);
+      if($request->foto){
+        $imageName = time().'.'.request()->foto->getClientOriginalExtension();
+        request()->foto->move(public_path('images'), $imageName);
+        $user = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Bcrypt($request->password),
+            'jenis_kelamin' => $request->jenis_kelamin,
+            'provinsi' => $request->provinsi,
+            'kota' => $request->kota,
+            'foto' => $imageName,
+            'token' => str_random(40)
+        ]);
+      }
+      else{
+        $user = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Bcrypt($request->password),
+            'jenis_kelamin' => $request->jenis_kelamin,
+            'provinsi' => $request->provinsi,
+            'kota' => $request->kota,
+            'token' => str_random(40)
+        ]);
+      }
       Mail::to($request->email)->send(new VerifikasiEmail($user));
 
       $success['user'] = $user;
@@ -80,6 +96,55 @@ class RegisterController extends Controller
       }
 
       return ApiBuilder::apiRespond($code, $response, $message);
+    }
+
+    public function updateUser(Request $request)
+    {
+      $validator = Validator::make($request->all(), [
+          'name' => ['required', 'string', 'max:255'],
+          'email' => ['string', 'email', 'max:255', 'unique'],
+          'password' => ['required', 'string', 'min:8'],
+          'jenis_kelamin' => ['required', 'string'],
+          'provinsi' => ['required', 'string'],
+          'kota' => ['required', 'string'],
+      ]);
+
+      if ($validator->fails()) {
+          return ApiBuilder::apiResponseValidationFails('Validation error messages!', $validator->errors()->all());
+      }
+
+      try {
+        $id = \Auth::user()->id;
+        $response = User::findOrFail($id)->first();
+
+        if($request->foto){
+          $imageName = time().'.'.request()->foto->getClientOriginalExtension();
+          request()->foto->move(public_path('images'), $imageName);
+
+          $response->update($request->all());
+          $response->foto = $imageName;
+          $response->save();
+        }
+        else{
+          $response->update($request->all());
+          $response->save();
+        }
+
+        $success['user'] = $response;
+
+      } catch (\Exception $e) {
+        if($e instanceof ModelNotFoundException){
+          $code= 200;
+          $message = "Data Not Exist";
+          $response = [];
+        }
+        else{
+          $code= 500;
+          $message = $e->getMessage();
+          $response = [];
+        }
+      }
+      return ApiBuilder::apiResponseSuccess('Update Data Sukses!', $success, 200);
     }
 
 }
