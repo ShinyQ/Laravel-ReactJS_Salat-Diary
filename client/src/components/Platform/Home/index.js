@@ -36,6 +36,7 @@ class Home extends Component {
                 <div>
                     <Row gutter={32}>
                         <Col md={24} lg={24} xl={10}>
+                            Dasboard
                             <div className="headerHome">
                                 <div className="container">
                                     <HeaderHome nama={this.props.user.name}/>
