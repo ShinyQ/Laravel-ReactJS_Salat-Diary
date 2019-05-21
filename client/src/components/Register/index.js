@@ -65,6 +65,7 @@ class Register extends Component {
     };
     // Rendering input type Radio for Redux Form
     renderInputRadio = ({input, meta, children, meta: {touched, error}}) => {
+        console.log(touched);
         return (
             <Fragment>
                 {touched && ((error && <Alert

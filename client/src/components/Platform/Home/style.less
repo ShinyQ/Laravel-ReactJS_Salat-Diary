@@ -1,11 +1,12 @@
 @bgColor: rgb(56, 239, 125);
 @bgGradient: linear-gradient(306deg, rgba(56, 239, 125, 1) 0%, rgba(32, 176, 164, 1) 100%);
 @paddingW: 24px;
+@radioButtonHeight: 60px;
 
 .headerHome {
   background: url("../../../assets/images/headerHome.svg") no-repeat;
-  width: 100%;
-  min-height: 300px;
+  min-width: 100%;
+  min-height: 350px;
   @media (max-width: 500px) {
     min-height: 200px;
   }
@@ -39,4 +40,38 @@
   max-width: 960px; /* 2 */
   padding-right: @paddingW; /* 3 */
   padding-left: @paddingW; /* 3 */
+  h2 {
+    font-weight: lighter;
+    font-variant-caps: all-petite-caps;
+    font-size: 3vh;
+  }
 }
+
+.radioSubmitContainer {
+  margin-top: 32px;
+  width: 100%;
+  .radioSubmiStatus {
+    width: 100%;
+    text-align: center;
+    height: @radioButtonHeight;
+    line-height: @radioButtonHeight;
+    margin-bottom: 8px;
+  }
+}
+
+.ant-radio-group-solid .ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled) {
+  color: #fff;
+  background: @bgColor;
+  background: @bgGradient;
+  border: none;
+  transition: 0.4s;
+}
+
+.buttonSubmitStatus {
+  width: 100%;
+  border-radius: 100px;
+  height: 50px;
+}
+
+
+
