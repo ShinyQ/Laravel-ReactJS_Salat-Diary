@@ -1,5 +1,5 @@
 //API Base URL
-export const BASE_URL = 'http://localhost:8000';
+export const BASE_URL = 'https://api.salatdiary.tech';
 
 //Action Types
 export const GET_CURRENT_POSITION = 'GET_CURRENT_POSITION';
@@ -19,3 +19,5 @@ export const RESET_AUTH_ERROR = 'RESET_AUTH_ERROR';
 export const SET_JADWAL_SALAT = 'SET_JADWAL_SALAT';
 export const SET_SALAT_NOW = 'SET_SALAT_NOW';
 export const GET_CURRENT_USER = 'GET_CURRENT_USER';
+export const GET_KEY_SALAT = 'GET_KEY_SALAT';
+export const GET_KEY_STATUS = 'GET_KEY_STATUS';
