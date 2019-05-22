@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {getCurrentUser} from "../../../actions/authAction";
-import {getKeySalat, getKeyStatus} from "../../../actions/salatAction";
+import {getKeySalat, getKeyStatus, getSalatToday} from "../../../actions/salatAction";
 
 import {Col, Divider, Row, Skeleton} from 'antd'
 
@@ -19,6 +19,7 @@ class Home extends Component {
         await this.props.getKeySalat();
         await this.props.getKeyStatus();
         await this.props.getCurrentUser();
+        this.props.getSalatToday();
         this.setState({
             isLoading: false
         })
@@ -49,7 +50,16 @@ class Home extends Component {
                             <Divider/>
                         </Col>
                         <Col md={24} lg={24} xl={14}>
-
+                            <div className="container">
+                                <h1>Today Salat</h1>
+                                {
+                                    this.props.todaySalat.map(a => (
+                                        <div>
+                                            {a.salat.nama}
+                                        </div>
+                                    ))
+                                }
+                            </div>
                         </Col>
                     </Row>
                 </div>
@@ -62,8 +72,9 @@ const mapStateToProps = state => {
     return {
         user: state.auth.user,
         salatNow: state.dataSalat.salatNow,
+        todaySalat: state.dataSalat.todaySalat,
         isLoading: state.global.isLoading
     }
 };
 
-export default connect(mapStateToProps, {getCurrentUser, getKeySalat, getKeyStatus})(Home);
+export default connect(mapStateToProps, {getCurrentUser, getKeySalat, getKeyStatus, getSalatToday})(Home);

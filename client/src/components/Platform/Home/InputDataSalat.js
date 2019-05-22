@@ -36,7 +36,7 @@ class InputDataSalat extends React.Component {
                         <Field name="statusSalat" component={this.renderInputRadioStatus} validate={[required()]}>
                             {
                                 this.props.status.map(a => (
-                                    <Col span={12} key={a.id}>
+                                    <Col xl={12} sm={24} key={a.id}>
                                         <Radio.Button value={a.nama} className="radioSubmiStatus">
                                             {a.nama}
                                         </Radio.Button>

@@ -1,6 +1,6 @@
 import moment from 'moment'
 import salatDiary from '../apis/shalatDiary';
-import {GET_KEY_SALAT, GET_KEY_STATUS} from "../constant";
+import {GET_KEY_SALAT, GET_KEY_STATUS, GET_SELECTED_DATE_SALAT, GET_TODAY_SALAT} from "../constant";
 
 /**
  * Get Jadwal Data .
@@ -71,4 +71,29 @@ export const submitStatusSalat = (salat, status) => async (dispatch, getState) =
         console.log(e.response)
     }
 
+};
+
+export const getSalatToday = () => async (dispatch, getState) => {
+    const response = await salatDiary.get('/api/v1/salat?today', {
+        headers: {
+            Accept: 'application/json',
+            Authorization: `Bearer ${getState().auth.token}`
+        }
+    });
+    console.log(response.data.data.data);
+    dispatch({type: GET_TODAY_SALAT, payload: response.data.data.data});
+
+};
+
+export const getSalatByDate = (tanggal) => async (dispatch, getState) => {
+    const selectedDate = moment(tanggal).format('YYYY-MM-DD');
+    const response = await salatDiary.get(`/api/v1/salat?tanggal=${selectedDate}`, {
+        headers: {
+            Accept: 'application/json',
+            Authorization: `Bearer ${getState().auth.token}`
+        }
+    });
+
+    dispatch({type: GET_SELECTED_DATE_SALAT, payload: response.data.data.data});
+    console.log(response.data.data.data)
 };
