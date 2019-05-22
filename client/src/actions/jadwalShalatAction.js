@@ -1,6 +1,7 @@
 import _ from 'lodash';
+import moment from 'moment'
 import jadwalShalat from '../apis/jadwalShalat';
-import {SET_JADWAL_SALAT, SET_SALAT_NOW} from "../constant";
+import {GET_INTERVAL_NEXT_SALAT, GET_NEXT_SALAT, SET_JADWAL_SALAT, SET_SALAT_NOW} from "../constant";
 
 export const getJadwalShalat = todayMonth => async (dispatch, getState) => {
     const latitude = getState().location.lat;
@@ -20,10 +21,7 @@ export const getJadwalShalat = todayMonth => async (dispatch, getState) => {
         .mapValues('waktu')
         .value();
 
-    const dateInstance = new Date();
-    const hour = dateInstance.getHours();
-    const minute = dateInstance.getMinutes();
-    const todayTime = await `${hour}:${minute}`;
+    const todayTime = await moment().format("HH:mm");
 
     const subuh = respon.Fajr;
     const duhur = respon.Dhuhr;
@@ -34,14 +32,13 @@ export const getJadwalShalat = todayMonth => async (dispatch, getState) => {
     dispatch({
         type: SET_JADWAL_SALAT,
         payload: [
-            {nama: "Subuh", waktu: subuh},
-            {nama: "Duhur", waktu: duhur},
-            {nama: "Asar", waktu: asar},
-            {nama: "Magrib", waktu: magrib},
-            {nama: "Isya", waktu: isya}
+            {nama: "subuh", waktu: subuh},
+            {nama: "duhur", waktu: duhur},
+            {nama: "asar", waktu: asar},
+            {nama: "magrib", waktu: magrib},
+            {nama: "isya", waktu: isya}
         ]
     });
-
     if (todayTime > subuh && todayTime < duhur) {
         // Waktu Subuh
         dispatch({type: SET_SALAT_NOW, payload: 'subuh'});
@@ -59,7 +56,47 @@ export const getJadwalShalat = todayMonth => async (dispatch, getState) => {
         dispatch({type: SET_SALAT_NOW, payload: 'isya'});
     } else if (todayTime > "00:00" && todayTime < subuh) {
         //Waktu Isya Kemarin
+        console.log("Masuk Isya");
         dispatch({type: SET_SALAT_NOW, payload: 'isya'});
     }
 
+};
+
+export const countDownNextSalat = () => async (dispatch, getState) => {
+    const jadwalSalat = getState().dataSalat.jadwalSalat;
+    const salatNow = getState().dataSalat.salatNow;
+
+    console.log(jadwalSalat);
+    console.log(salatNow);
+
+    if (jadwalSalat !== null && salatNow !== null) {
+        console.log("Masuk Sini");
+        const todayDate = moment().format("YYYY-MM-Do");
+        const tsNow = moment().unix();
+        let waktuSalatNext;
+        let timestampNext;
+        const nextSalat = await jadwalSalat.map(a => a.nama).indexOf(salatNow);
+
+        if (nextSalat === 4) {
+            dispatch({type: GET_NEXT_SALAT, payload: jadwalSalat[0].nama});
+            waktuSalatNext = jadwalSalat[0].waktu;
+            timestampNext = moment(`${todayDate} ${waktuSalatNext}`).unix()
+        } else {
+            dispatch({type: GET_NEXT_SALAT, payload: jadwalSalat[nextSalat + 1].nama});
+            waktuSalatNext = jadwalSalat[nextSalat + 1].waktu;
+            timestampNext = moment(`${todayDate} ${waktuSalatNext}`).unix()
+        }
+
+        const diffTime = timestampNext - tsNow;
+        let duration = moment.duration(diffTime * 1000, 'milliseconds');
+        const interval = 1000;
+        setInterval(() => {
+                duration = moment.duration(duration - interval, 'milliseconds');
+
+                const intervalNext = `${duration.hours()} : ${duration.minutes()} : ${duration.seconds()}`;
+                const parseMoment = moment(intervalNext, "H:m:s").format("HH:mm:ss");
+                dispatch({type: GET_INTERVAL_NEXT_SALAT, payload: parseMoment});
+            }, interval
+        );
+    }
 };

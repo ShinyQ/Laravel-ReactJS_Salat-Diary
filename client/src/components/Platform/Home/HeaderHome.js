@@ -3,7 +3,7 @@ import moment from 'moment';
 
 
 const HeaderHome = (props) => {
-    const dateNow = moment().locale('id').format('dddd, Do MMMM YYYY');
+    const dateNow = moment().format('dddd, Do MMMM YYYY');
 
     return (
         <Fragment>
