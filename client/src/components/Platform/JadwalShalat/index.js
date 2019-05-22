@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux'
-import {Col, Row, Typography} from 'antd';
+import {Typography} from 'antd';
 
 import {getCurrentUser} from "../../../actions/authAction";
 import {countDownNextSalat, getJadwalShalat} from "../../../actions/jadwalShalatAction";
@@ -19,20 +19,23 @@ class JadwalShalat extends Component {
         this.props.countDownNextSalat();
     }
 
+    renderCountdown = () => {
+        if (this.props.nextSalat == null || this.props.intervalNextSalat == null) {
+            return <h5>Loading...</h5>
+        } else {
+            const nextSalat = this.props.nextSalat.charAt(0).toUpperCase() + this.props.nextSalat.slice(1);
+            return (
+                <h4>{nextSalat + " - " + this.props.intervalNextSalat}</h4>
+            )
+        }
+    };
 
     render() {
         return (
             <div>
                 <div className="headerJadwal">
                     <h1>Salat Selanjutnya</h1>
-                    <Row gutter={32}>
-                        <Col span={12}>
-                            <h5>{this.props.nextSalat}</h5>
-                        </Col>
-                        <Col span={12}>
-                            <h4>{this.props.intervalNextSalat}</h4>
-                        </Col>
-                    </Row>
+                    {this.renderCountdown()}
                 </div>
             </div>
         );

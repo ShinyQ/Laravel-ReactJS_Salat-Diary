@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import moment from 'moment'
 import jadwalShalat from '../apis/jadwalShalat';
-import {GET_INTERVAL_NEXT_SALAT, SET_JADWAL_SALAT, SET_SALAT_NOW} from "../constant";
+import {GET_INTERVAL_NEXT_SALAT, GET_NEXT_SALAT, SET_JADWAL_SALAT, SET_SALAT_NOW} from "../constant";
 
 export const getJadwalShalat = todayMonth => async (dispatch, getState) => {
     const latitude = getState().location.lat;
@@ -78,11 +78,11 @@ export const countDownNextSalat = () => async (dispatch, getState) => {
         const nextSalat = await jadwalSalat.map(a => a.nama).indexOf(salatNow);
 
         if (nextSalat === 4) {
-            // dispatch({type:GET_NEXT_SALAT, payload:jadwalSalat[0].nama});
+            dispatch({type: GET_NEXT_SALAT, payload: jadwalSalat[0].nama});
             waktuSalatNext = jadwalSalat[0].waktu;
             timestampNext = moment(`${todayDate} ${waktuSalatNext}`).unix()
         } else {
-            // dispatch({type:GET_NEXT_SALAT, payload:jadwalSalat[nextSalat+1].nama});
+            dispatch({type: GET_NEXT_SALAT, payload: jadwalSalat[nextSalat + 1].nama});
             waktuSalatNext = jadwalSalat[nextSalat + 1].waktu;
             timestampNext = moment(`${todayDate} ${waktuSalatNext}`).unix()
         }
