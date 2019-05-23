@@ -26,6 +26,7 @@ class RegisterController extends Controller
           'jenis_kelamin' => ['required', 'string'],
           'provinsi' => ['required', 'string'],
           'kota' => ['required', 'string'],
+          'foto' => ['image','mimes:jpeg,png,jpg,gif,svg','max:2048'],
       ]);
 
       if ($validator->fails()) {
@@ -58,44 +59,8 @@ class RegisterController extends Controller
         ]);
       }
       Mail::to($request->email)->send(new VerifikasiEmail($user));
-
       $success['user'] = $user;
-
       return ApiBuilder::apiResponseSuccess('Register Sukses!', $success, 200);
-    }
-
-    public function verifyUser($token)
-    {
-      try {
-        $verifyUser = User::where('token', $token)->first();
-        if($verifyUser->email_verified_at == null) {
-            $time = Carbon::now();
-            $verifyUser->email_verified_at = $time;
-            $verifyUser->save();
-
-            $code= 200;
-            $message = "Sukses Mengkonfirmasi Akun";
-            $response = $verifyUser;
-        }else{
-          $code= 200;
-          $message = "Anda Sudah Melakukan Verifikasi Akun";
-          $response = $verifyUser;
-        }
-
-      }catch (\Exception $e) {
-        if($e instanceof ModelNotFoundException){
-          $code= 200;
-          $message = "Data Not Exist";
-          $response = [];
-        }
-        else{
-          $code= 500;
-          $message = $e->getMessage();
-          $response = [];
-        }
-      }
-
-      return ApiBuilder::apiRespond($code, $response, $message);
     }
 
     public function updateUser(Request $request)
@@ -107,6 +72,7 @@ class RegisterController extends Controller
           'jenis_kelamin' => ['required', 'string'],
           'provinsi' => ['required', 'string'],
           'kota' => ['required', 'string'],
+          'foto' => ['image','mimes:jpeg,png,jpg,gif,svg','max:2048'],
       ]);
 
       if ($validator->fails()) {
@@ -145,6 +111,40 @@ class RegisterController extends Controller
         }
       }
       return ApiBuilder::apiResponseSuccess('Update Data Sukses!', $success, 200);
+    }
+
+    public function verifyUser($token)
+    {
+      try {
+        $verifyUser = User::where('token', $token)->first();
+        if($verifyUser->email_verified_at == null) {
+            $time = Carbon::now();
+            $verifyUser->email_verified_at = $time;
+            $verifyUser->save();
+
+            $code= 200;
+            $message = "Sukses Mengkonfirmasi Akun";
+            $response = $verifyUser;
+        }else{
+          $code= 200;
+          $message = "Anda Sudah Melakukan Verifikasi Akun";
+          $response = $verifyUser;
+        }
+
+      }catch (\Exception $e) {
+        if($e instanceof ModelNotFoundException){
+          $code= 200;
+          $message = "Data Not Exist";
+          $response = [];
+        }
+        else{
+          $code= 500;
+          $message = $e->getMessage();
+          $response = [];
+        }
+      }
+
+      return ApiBuilder::apiRespond($code, $response, $message);
     }
 
 }
