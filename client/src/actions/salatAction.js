@@ -1,4 +1,4 @@
-import moment from 'moment'
+import moment from 'moment';
 import salatDiary from '../apis/shalatDiary';
 import {GET_KEY_SALAT, GET_KEY_STATUS, GET_SELECTED_DATE_SALAT, GET_TODAY_SALAT} from "../constant";
 
@@ -94,6 +94,23 @@ export const getSalatByDate = (tanggal) => async (dispatch, getState) => {
         }
     });
 
-    dispatch({type: GET_SELECTED_DATE_SALAT, payload: response.data.data.data});
-    console.log(response.data.data.data)
+    let shalatArr = [
+        {nama: "subuh", status: "Belum Mengisi"},
+        {nama: "duhur", status: "Belum Mengisi"},
+        {nama: "asar", status: "Belum Mengisi"},
+        {nama: "magrib", status: "Belum Mengisi"},
+        {nama: "isya", status: "Belum Mengisi"},
+    ];
+
+    const arrResponse = await response.data.data.data.map(a => a.salat);
+
+    await shalatArr.forEach((e, i) => {
+        arrResponse.forEach(a => {
+            if (a.nama === e.nama) {
+                shalatArr[i] = a
+            }
+        })
+    });
+
+    dispatch({type: GET_SELECTED_DATE_SALAT, payload: shalatArr});
 };

@@ -1,13 +1,13 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux'
-import {Typography} from 'antd';
+import {Col, Row} from 'antd';
 
 import {getCurrentUser} from "../../../actions/authAction";
 import {countDownNextSalat, getJadwalShalat} from "../../../actions/jadwalShalatAction";
 
 import './style.less';
 
-const {Title} = Typography;
+import Title from '../Title'
 
 class JadwalShalat extends Component {
 
@@ -33,10 +33,15 @@ class JadwalShalat extends Component {
     render() {
         return (
             <div>
+                <Title judul="Jadwal Salat" level={2}/>
                 <div className="headerJadwal">
                     <h1>Salat Selanjutnya</h1>
                     {this.renderCountdown()}
                 </div>
+                <Row>
+                    <Col>
+                    </Col>
+                </Row>
             </div>
         );
     }

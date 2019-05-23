@@ -4,6 +4,7 @@ import {connect} from 'react-redux';
 import moment from 'moment'
 
 import {getSalatByDate} from "../../../actions/salatAction";
+import Title from "../Title";
 
 class DataSalat extends Component {
     state = {
@@ -31,11 +32,12 @@ class DataSalat extends Component {
                 <Skeleton/>
             )
         } else {
-            return (
-                <p>
-                    {JSON.stringify(this.props.selectedDateSalat)}
-                </p>
-            )
+            return this.props.selectedDateSalat.map((a, i) => (
+                <div key={i}>
+                    <h1>{a.nama}</h1>
+                    <h5>{a.status}</h5>
+                </div>
+            ))
         }
     };
 
@@ -48,11 +50,12 @@ class DataSalat extends Component {
             <div>
                 <Row gutter={32}>
                     <Col xl={8} sm={12}>
-                        <h1>Kalender Salat</h1>
+                        <Title judul="Kalender Salat" level={2}/>
                         <Calendar value={this.state.value} onSelect={this.onSelect} onPanelChange={this.onPanelChange}/>
                     </Col>
                     <Col xl={16} sm={12}>
-                        <h1>Statistik Salat - {moment(this.state.value).format('dddd, Do MMMM YYYY')}</h1>
+                        <Title judul={`Statistik Salat - ${moment(this.state.value).format('dddd, Do MMMM YYYY')}`}
+                               level={2}/>
                         {this.renderStatistikSalat()}
                     </Col>
                 </Row>
