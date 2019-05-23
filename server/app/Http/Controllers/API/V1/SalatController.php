@@ -42,6 +42,19 @@ class SalatController extends Controller
           $data = $response->where('id_status', request()->query("status"))->get();
         }
 
+        if (request()->has("jadwal") &&
+            strlen(request()->query("jadwal")) >= 1 &&
+            request()->has("status") &&
+            strlen(request()->query("status")) >= 1 &&
+            request()->has("bulan") &&
+            strlen(request()->query("status")) >= 1
+           ){
+           $data = $response->where('id_jadwal', request()->query("jadwal"))
+                            ->where('id_status', request()->query("status"))
+                            ->whereMonth('tanggal', request()->query("bulan"))
+                            ->get();
+        }
+
         if (request()->has("today")) {
           $response->where('tanggal', $tanggal);
         }
