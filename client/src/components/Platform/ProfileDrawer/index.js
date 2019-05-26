@@ -19,7 +19,7 @@ class ProfileDrawer extends Component {
 
     renderEditLink = () => {
         return (
-            <Link to="/profile" className="linkToEdit">
+            <Link to="/dashboard/profile" className="linkToEdit">
                 Edit Profile
             </Link>
         )

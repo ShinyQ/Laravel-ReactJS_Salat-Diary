@@ -11,6 +11,7 @@ import Navbar from "./Navbar";
 import JadwalShalat from "./JadwalShalat";
 import Home from "./Home";
 import DataSalat from "./DataSalat";
+import Profile from "./Profile";
 
 const {Content} = Layout;
 
@@ -44,6 +45,7 @@ class Platform extends Component {
                         <Route path={`${this.props.match.url}/jadwal`} exact component={JadwalShalat}/>
                         <Route path={`${this.props.match.url}`} exact component={Home}/>
                         <Route path={`${this.props.match.url}/salat`} exact component={DataSalat}/>
+                        <Route path={`${this.props.match.url}/profile`} exact component={Profile}/>
                     </Content>
                 </Layout>
             </Layout>

@@ -1,4 +1,4 @@
-import moment from 'moment'
+import moment from 'moment';
 import salatDiary from '../apis/shalatDiary';
 import {GET_KEY_SALAT, GET_KEY_STATUS, GET_SELECTED_DATE_SALAT, GET_TODAY_SALAT} from "../constant";
 
@@ -36,7 +36,7 @@ export const getKeyStatus = () => async (dispatch, getState) => {
  * @param {string} salat - String of the salat name
  * @param {string} status - String of the status name
  *
- * @return{Object} - returns an Object of id
+ * @return {Object} - returns an Object of id
  */
 const getAllKey = (keySalat, keyStatus, salat, status) => {
     const idJadwal = keySalat.find(key => key.nama === salat);
@@ -47,6 +47,7 @@ const getAllKey = (keySalat, keyStatus, salat, status) => {
         idStatus: idStatus.id
     }
 };
+
 
 export const submitStatusSalat = (salat, status) => async (dispatch, getState) => {
     const keySalat = getState().dataSalat.keySalat;
@@ -94,6 +95,34 @@ export const getSalatByDate = (tanggal) => async (dispatch, getState) => {
         }
     });
 
-    dispatch({type: GET_SELECTED_DATE_SALAT, payload: response.data.data.data});
-    console.log(response.data.data.data)
+    let shalatArr = [
+        {nama: "subuh", status: "Belum Mengisi"},
+        {nama: "duhur", status: "Belum Mengisi"},
+        {nama: "asar", status: "Belum Mengisi"},
+        {nama: "magrib", status: "Belum Mengisi"},
+        {nama: "isya", status: "Belum Mengisi"},
+    ];
+
+    const arrResponse = await response.data.data.data.map(a => a.salat);
+
+    await shalatArr.forEach((e, i) => {
+        arrResponse.forEach(a => {
+            if (a.nama === e.nama) {
+                shalatArr[i] = a
+            }
+        })
+    });
+
+    dispatch({type: GET_SELECTED_DATE_SALAT, payload: shalatArr});
+};
+
+export const getDataSalatAll = () => async (dispatch, getState) => {
+    const response = await salatDiary.get(`/api/v1/salat`, {
+        headers: {
+            Accept: 'application/json',
+            Authorization: `Bearer ${getState().auth.token}`
+        }
+    });
+
+    console.log(response)
 };
