@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
+import {Pie} from 'react-chartjs-2';
 import {getCurrentUser} from "../../../actions/authAction";
 import {getKeySalat, getKeyStatus, getSalatToday} from "../../../actions/salatAction";
 
@@ -8,6 +9,33 @@ import {Col, Divider, Row, Skeleton} from 'antd'
 import './style.less';
 import HeaderHome from "./HeaderHome";
 import InputDataSalat from "./InputDataSalat";
+import Title from "../Title";
+
+const data = {
+    labels: [
+        'Berjamaah',
+        'Sendiri',
+        'Telat',
+        'Tidak Salat',
+        'Belum Mengisi',
+    ],
+    datasets: [{
+        data: [5, 5, 6, 9, 15],
+        backgroundColor: [
+            '#FF6384',
+            '#36A2EB',
+            '#FFCE56',
+            '#8C14FC',
+            '#D91E18',
+        ],
+        hoverBackgroundColor: [
+            '#FF6384',
+            '#36A2EB',
+            '#FFCE56'
+        ]
+    }]
+};
+
 
 class Home extends Component {
   
@@ -37,7 +65,7 @@ class Home extends Component {
                 <div>
                     <Row gutter={32}>
                         <Col md={24} lg={24} xl={10}>
-                            Dasboard
+                            <Title judul="Dashboard" level={2}/>
                             <div className="headerHome">
                                 <div className="container">
                                     <HeaderHome nama={this.props.user.name}/>
@@ -50,15 +78,13 @@ class Home extends Component {
                             <Divider/>
                         </Col>
                         <Col md={24} lg={24} xl={14}>
+                            <Title judul="Overview Bulan Ini" level={2}/>
                             <div className="container">
-                                <h1>Today Salat</h1>
-                                {
-                                    this.props.todaySalat.map(a => (
-                                        <div>
-                                            {a.salat.nama}
-                                        </div>
-                                    ))
-                                }
+                                <Row>
+                                    <Col span={12}>
+                                    </Col>
+                                </Row>
+                                <Pie data={data}/>
                             </div>
                         </Col>
                     </Row>

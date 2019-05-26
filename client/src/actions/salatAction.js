@@ -36,7 +36,7 @@ export const getKeyStatus = () => async (dispatch, getState) => {
  * @param {string} salat - String of the salat name
  * @param {string} status - String of the status name
  *
- * @return{Object} - returns an Object of id
+ * @return {Object} - returns an Object of id
  */
 const getAllKey = (keySalat, keyStatus, salat, status) => {
     const idJadwal = keySalat.find(key => key.nama === salat);
@@ -47,6 +47,7 @@ const getAllKey = (keySalat, keyStatus, salat, status) => {
         idStatus: idStatus.id
     }
 };
+
 
 export const submitStatusSalat = (salat, status) => async (dispatch, getState) => {
     const keySalat = getState().dataSalat.keySalat;
@@ -113,4 +114,15 @@ export const getSalatByDate = (tanggal) => async (dispatch, getState) => {
     });
 
     dispatch({type: GET_SELECTED_DATE_SALAT, payload: shalatArr});
+};
+
+export const getDataSalatAll = () => async (dispatch, getState) => {
+    const response = await salatDiary.get(`/api/v1/salat`, {
+        headers: {
+            Accept: 'application/json',
+            Authorization: `Bearer ${getState().auth.token}`
+        }
+    });
+
+    console.log(response)
 };

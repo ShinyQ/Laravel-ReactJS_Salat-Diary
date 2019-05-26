@@ -2,11 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="78082e9a-2b34-4354-9d87-ebfc323ffa31" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/client/src/components/Platform/Title.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/client/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/client/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/actions/salatAction.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/actions/salatAction.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/components/Platform/DataSalat/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/Platform/DataSalat/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/Platform/JadwalShalat/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/Platform/JadwalShalat/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/Platform/Home/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/Platform/Home/index.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -21,34 +22,34 @@
     <session id="851995180">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="8" />
+          <entry key="project.closed" value="9" />
           <entry key="project.open.time.0" value="1" />
           <entry key="project.open.time.16" value="1" />
           <entry key="project.open.time.17" value="1" />
           <entry key="project.open.time.18" value="1" />
           <entry key="project.open.time.19" value="3" />
           <entry key="project.open.time.2" value="1" />
-          <entry key="project.open.time.22" value="1" />
+          <entry key="project.open.time.22" value="2" />
           <entry key="project.open.time.6" value="1" />
-          <entry key="project.opened" value="10" />
+          <entry key="project.opened" value="11" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="gitignore" value="13" />
-          <entry key="js" value="31638" />
+          <entry key="js" value="32606" />
           <entry key="json" value="12" />
           <entry key="less" value="2045" />
           <entry key="php" value="17" />
-          <entry key="txt" value="1003" />
+          <entry key="txt" value="1027" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="JSON" value="12" />
-          <entry key="JavaScript" value="31638" />
+          <entry key="JavaScript" value="32606" />
           <entry key="Less" value="2045" />
-          <entry key="PLAIN_TEXT" value="1033" />
+          <entry key="PLAIN_TEXT" value="1057" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
@@ -56,7 +57,7 @@
           <entry key="css" value="1" />
           <entry key="env" value="1" />
           <entry key="gitignore" value="1" />
-          <entry key="js" value="142" />
+          <entry key="js" value="144" />
           <entry key="json" value="6" />
           <entry key="ks" value="2" />
           <entry key="less" value="19" />
@@ -67,7 +68,7 @@
         <counts>
           <entry key="CSS" value="1" />
           <entry key="JSON" value="6" />
-          <entry key="JavaScript" value="142" />
+          <entry key="JavaScript" value="144" />
           <entry key="Less" value="19" />
           <entry key="PLAIN_TEXT" value="7" />
         </counts>
@@ -86,8 +87,20 @@
           <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/client/src/components/Platform/JadwalShalat/index.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="207">
-                  <caret line="36" column="42" selection-start-line="36" selection-start-column="42" selection-end-line="36" selection-end-column="42" />
+                <state relative-caret-position="529">
+                  <caret line="41" column="25" selection-start-line="41" selection-start-column="25" selection-end-line="41" selection-end-column="25" />
+                  <folding>
+                    <element signature="e#0#39#0" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/client/src/components/Platform/Home/index.js">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="230">
+                  <caret line="22" column="27" selection-start-line="22" selection-start-column="27" selection-end-line="22" selection-end-column="27" />
                   <folding>
                     <element signature="e#0#39#0" expanded="true" />
                   </folding>
@@ -103,17 +116,17 @@
           <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/client/src/actions/jadwalShalatAction.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="230">
-                  <caret line="33" column="18" lean-forward="true" selection-start-line="33" selection-start-column="18" selection-end-line="33" selection-end-column="18" />
+                <state relative-caret-position="690">
+                  <caret line="33" column="18" selection-start-line="33" selection-start-column="18" selection-end-line="33" selection-end-column="18" />
                 </state>
               </provider>
             </entry>
           </file>
-          <file pinned="false" current-in-tab="false">
+          <file pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/client/src/components/Platform/DataSalat/index.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="598">
-                  <caret line="59" column="22" lean-forward="true" selection-start-line="59" selection-start-column="22" selection-end-line="59" selection-end-column="22" />
+                <state relative-caret-position="368">
+                  <caret line="85" column="40" lean-forward="true" selection-start-line="85" selection-start-column="40" selection-end-line="85" selection-end-column="40" />
                   <folding>
                     <element signature="e#0#39#0" expanded="true" />
                   </folding>
@@ -125,19 +138,16 @@
             <entry file="file://$PROJECT_DIR$/client/src/components/Platform/Title.js">
               <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="92">
-                  <caret line="4" column="63" selection-start-line="4" selection-start-column="63" selection-end-line="4" selection-end-column="63" />
-                  <folding>
-                    <element signature="e#0#26#0" expanded="true" />
-                  </folding>
+                  <caret line="5" column="64" selection-start-line="5" selection-start-column="64" selection-end-line="5" selection-end-column="64" />
                 </state>
               </provider>
             </entry>
           </file>
-          <file pinned="false" current-in-tab="true">
+          <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/client/src/actions/salatAction.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="382">
-                  <caret line="102" column="45" lean-forward="true" selection-start-line="102" selection-start-column="45" selection-end-line="102" selection-end-column="45" />
+                <state relative-caret-position="2323">
+                  <caret line="104" selection-start-line="104" selection-end-line="104" />
                   <folding>
                     <element signature="e#0#28#0" expanded="true" />
                   </folding>
@@ -150,18 +160,6 @@
               <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="276">
                   <caret line="16" column="61" selection-start-line="16" selection-start-column="61" selection-end-line="16" selection-end-column="61" />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/client/src/components/App.js">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="161">
-                  <caret line="18" selection-start-line="18" selection-end-line="18" />
-                  <folding>
-                    <element signature="e#0#49#0" expanded="true" />
-                  </folding>
                 </state>
               </provider>
             </entry>
@@ -194,7 +192,7 @@
           <file pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/client/src/components/Platform/JadwalShalat/style.less">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="575">
+                <state relative-caret-position="451">
                   <caret line="25" column="24" selection-start-line="25" selection-start-column="24" selection-end-line="25" selection-end-column="24" />
                 </state>
               </provider>
@@ -253,7 +251,6 @@
         <option value="$PROJECT_DIR$/client/server.js" />
         <option value="$PROJECT_DIR$/client/src/components/App.js" />
         <option value="$PROJECT_DIR$/client/src/components/Platform/Home/InputDataSalat.js" />
-        <option value="$PROJECT_DIR$/client/src/components/Platform/Home/index.js" />
         <option value="$PROJECT_DIR$/client/src/components/Platform/Sidebar/index.js" />
         <option value="$PROJECT_DIR$/client/src/components/Platform/Sidebar/style.less" />
         <option value="$PROJECT_DIR$/client/src/components/Platform/style.less" />
@@ -262,10 +259,11 @@
         <option value="$PROJECT_DIR$/client/src/constant/index.js" />
         <option value="$PROJECT_DIR$/client/src/actions/jadwalShalatAction.js" />
         <option value="$PROJECT_DIR$/client/src/components/Platform/JadwalShalat/style.less" />
-        <option value="$PROJECT_DIR$/client/src/components/Platform/DataSalat/index.js" />
         <option value="$PROJECT_DIR$/client/src/components/Platform/Title.js" />
         <option value="$PROJECT_DIR$/client/src/components/Platform/JadwalShalat/index.js" />
         <option value="$PROJECT_DIR$/client/src/actions/salatAction.js" />
+        <option value="$PROJECT_DIR$/client/src/components/Platform/Home/index.js" />
+        <option value="$PROJECT_DIR$/client/src/components/Platform/DataSalat/index.js" />
       </list>
     </option>
   </component>
@@ -361,6 +359,15 @@
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="components" type="462c0819:PsiDirectoryNode" />
               <item name="Platform" type="462c0819:PsiDirectoryNode" />
+              <item name="Home" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="shalat-diary" type="b2602c69:ProjectViewProjectNode" />
+              <item name="shalat-diary" type="462c0819:PsiDirectoryNode" />
+              <item name="client" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="components" type="462c0819:PsiDirectoryNode" />
+              <item name="Platform" type="462c0819:PsiDirectoryNode" />
               <item name="JadwalShalat" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -430,7 +437,8 @@
       <workItem from="1558236047959" duration="18508000" />
       <workItem from="1558271374658" duration="21437000" />
       <workItem from="1558502875345" duration="14751000" />
-      <workItem from="1558578175387" duration="5721000" />
+      <workItem from="1558578175387" duration="9393000" />
+      <workItem from="1558846474579" duration="4462000" />
     </task>
     <task id="LOCAL-00001" summary="add redux setup">
       <created>1557927065942</created>
@@ -621,17 +629,24 @@
       <option name="project" value="LOCAL" />
       <updated>1558554235738</updated>
     </task>
-    <option name="localTasksCounter" value="28" />
+    <task id="LOCAL-00028" summary="Update - Data Salat List update">
+      <created>1558606517486</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1558606517486</updated>
+    </task>
+    <option name="localTasksCounter" value="29" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="134822000" />
+    <option name="totallyTimeSpent" value="142956000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.13066386" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.13066386" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -692,7 +707,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$/client" />
     </ignored-roots>
-    <MESSAGE value="Add Geolocation Action and Reducer" />
     <MESSAGE value="Add React Router" />
     <MESSAGE value="Add Login Auth" />
     <MESSAGE value="Resolve Login auth response" />
@@ -717,7 +731,8 @@
     <MESSAGE value="Add Data Salat Page (UI yet to be implemented)" />
     <MESSAGE value="Add Countdown for next Salat" />
     <MESSAGE value="Update - Countdown bugfix" />
-    <option name="LAST_COMMIT_MESSAGE" value="Update - Countdown bugfix" />
+    <MESSAGE value="Update - Data Salat List update" />
+    <option name="LAST_COMMIT_MESSAGE" value="Update - Data Salat List update" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />
@@ -859,13 +874,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/localStorage.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="198">
-          <caret line="19" column="39" lean-forward="true" selection-start-line="19" selection-start-column="39" selection-end-line="19" selection-end-column="39" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/client/src/reducers/globalReducer.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="368">
@@ -950,23 +958,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/components/Platform/Home/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="322">
-          <caret line="14" column="23" lean-forward="true" selection-start-line="14" selection-start-column="23" selection-end-line="14" selection-end-column="23" />
-          <folding>
-            <element signature="e#0#39#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/client/src/components/Platform/Home/InputDataSalat.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="460">
           <caret line="47" column="31" lean-forward="true" selection-start-line="47" selection-start-column="31" selection-end-line="47" selection-end-column="31" />
-          <folding>
-            <element signature="e#0#38#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -981,9 +976,51 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="161">
           <caret line="18" selection-start-line="18" selection-end-line="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/actions/authAction.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="819">
+          <caret line="79" column="31" selection-start-line="79" selection-start-column="31" selection-end-line="79" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/localStorage.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="221">
+          <caret line="19" column="39" lean-forward="true" selection-start-line="19" selection-start-column="39" selection-end-line="19" selection-end-column="39" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/actions/jadwalShalatAction.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="690">
+          <caret line="33" column="18" selection-start-line="33" selection-start-column="18" selection-end-line="33" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/components/Platform/Title.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="92">
+          <caret line="5" column="64" selection-start-line="5" selection-start-column="64" selection-end-line="5" selection-end-column="64" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/actions/salatAction.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2323">
+          <caret line="104" selection-start-line="104" selection-end-line="104" />
           <folding>
-            <element signature="e#0#49#0" expanded="true" />
+            <element signature="e#0#28#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/components/Platform/Sidebar/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="276">
+          <caret line="16" column="61" selection-start-line="16" selection-start-column="61" selection-end-line="16" selection-end-column="61" />
         </state>
       </provider>
     </entry>
@@ -1007,63 +1044,32 @@
     <entry file="file://$PROJECT_DIR$/client/src/components/Platform/JadwalShalat/style.less">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/components/Platform/Sidebar/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="276">
-          <caret line="16" column="61" selection-start-line="16" selection-start-column="61" selection-end-line="16" selection-end-column="61" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/actions/authAction.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="819">
-          <caret line="79" column="31" selection-start-line="79" selection-start-column="31" selection-end-line="79" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/client/src/components/Platform/JadwalShalat/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="207">
-          <caret line="36" column="42" selection-start-line="36" selection-start-column="42" selection-end-line="36" selection-end-column="42" />
+        <state relative-caret-position="529">
+          <caret line="41" column="25" selection-start-line="41" selection-start-column="25" selection-end-line="41" selection-end-column="25" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/actions/jadwalShalatAction.js">
+    <entry file="file://$PROJECT_DIR$/client/src/components/Platform/Home/index.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="230">
-          <caret line="33" column="18" lean-forward="true" selection-start-line="33" selection-start-column="18" selection-end-line="33" selection-end-column="18" />
+          <caret line="22" column="27" selection-start-line="22" selection-start-column="27" selection-end-line="22" selection-end-column="27" />
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/client/src/components/Platform/DataSalat/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="598">
-          <caret line="59" column="22" lean-forward="true" selection-start-line="59" selection-start-column="22" selection-end-line="59" selection-end-column="22" />
+        <state relative-caret-position="368">
+          <caret line="85" column="40" lean-forward="true" selection-start-line="85" selection-start-column="40" selection-end-line="85" selection-end-column="40" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/components/Platform/Title.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="92">
-          <caret line="4" column="63" selection-start-line="4" selection-start-column="63" selection-end-line="4" selection-end-column="63" />
-          <folding>
-            <element signature="e#0#26#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/actions/salatAction.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="382">
-          <caret line="102" column="45" lean-forward="true" selection-start-line="102" selection-start-column="45" selection-end-line="102" selection-end-column="45" />
-          <folding>
-            <element signature="e#0#28#0" expanded="true" />
           </folding>
         </state>
       </provider>
