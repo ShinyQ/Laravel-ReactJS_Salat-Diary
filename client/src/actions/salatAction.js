@@ -126,3 +126,37 @@ export const getDataSalatAll = () => async (dispatch, getState) => {
 
     console.log(response)
 };
+
+export const getStatusOverviewThisMonth = () => async (dispatch, getState) => {
+    let response;
+    const keySalat = getState().dataSalat.keySalat;
+    const keyStatus = getState().dataSalat.keyStatus;
+
+
+    const monthNow = moment().format('M');
+
+    await keySalat.forEach(salat => {
+        keyStatus.forEach(async status => {
+            const allKey = await getAllKey(keySalat, keyStatus, salat.nama, status.nama);
+
+            response = await salatDiary.get(`/api/v1/salat?jadwal=${allKey.idJadwal}&status=${allKey.idStatus}&bulan=${monthNow}`, {
+                headers: {
+                    Accept: 'application/json',
+                    Authorization: `Bearer ${getState().auth.token}`
+                }
+            });
+
+            console.log(salat.nama, status.nama, response.data.data.data);
+
+        })
+    })
+
+};
+//
+// export const updateDataSalat = (salat, status, tanggal) => async (dispatch, getState) => {
+//     const response = await salatDiary.put('/api/v1/salat', {
+//         id_user: id_user,
+//         tanggal: tanggal,
+//         s
+//     })
+// }
