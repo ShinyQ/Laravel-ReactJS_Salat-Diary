@@ -18,6 +18,7 @@ const INITIAL_STATE = {
     selectedDateSalat: [],
     intervalNextSalat: null,
     nextSalat: null,
+    overviewSalat: [],
 };
 
 export default (state = INITIAL_STATE, action) => {

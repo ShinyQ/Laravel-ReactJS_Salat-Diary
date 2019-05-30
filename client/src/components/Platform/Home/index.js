@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {Pie} from 'react-chartjs-2';
 import {getCurrentUser} from "../../../actions/authAction";
-import {getKeySalat, getKeyStatus, getSalatToday} from "../../../actions/salatAction";
+import {getKeySalat, getKeyStatus, getSalatToday, getStatusOverviewThisMonth} from "../../../actions/salatAction";
 
 import {Col, Divider, Row, Skeleton} from 'antd'
 
@@ -47,6 +47,7 @@ class Home extends Component {
         await this.props.getKeySalat();
         await this.props.getKeyStatus();
         await this.props.getCurrentUser();
+        await this.props.getStatusOverviewThisMonth();
         this.props.getSalatToday();
         this.setState({
             isLoading: false
@@ -103,4 +104,10 @@ const mapStateToProps = state => {
     }
 };
 
-export default connect(mapStateToProps, {getCurrentUser, getKeySalat, getKeyStatus, getSalatToday})(Home);
+export default connect(mapStateToProps, {
+    getCurrentUser,
+    getKeySalat,
+    getKeyStatus,
+    getSalatToday,
+    getStatusOverviewThisMonth
+})(Home);
