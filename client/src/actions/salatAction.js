@@ -81,39 +81,46 @@ export const getSalatToday = () => async (dispatch, getState) => {
             Authorization: `Bearer ${getState().auth.token}`
         }
     });
-    console.log(response.data.data.data);
     dispatch({type: GET_TODAY_SALAT, payload: response.data.data.data});
 
 };
 
 export const getSalatByDate = (tanggal) => async (dispatch, getState) => {
-    const selectedDate = moment(tanggal).format('YYYY-MM-DD');
-    const response = await salatDiary.get(`/api/v1/salat?tanggal=${selectedDate}`, {
-        headers: {
-            Accept: 'application/json',
-            Authorization: `Bearer ${getState().auth.token}`
-        }
-    });
-
-    let shalatArr = [
-        {nama: "subuh", status: "Belum Mengisi"},
-        {nama: "duhur", status: "Belum Mengisi"},
-        {nama: "asar", status: "Belum Mengisi"},
-        {nama: "magrib", status: "Belum Mengisi"},
-        {nama: "isya", status: "Belum Mengisi"},
-    ];
-
-    const arrResponse = await response.data.data.data.map(a => a.salat);
-
-    await shalatArr.forEach((e, i) => {
-        arrResponse.forEach(a => {
-            if (a.nama === e.nama) {
-                shalatArr[i] = a
+    try {
+        const selectedDate = moment(tanggal).format('YYYY-MM-DD');
+        const response = await salatDiary.get(`/api/v1/salat?tanggal=${selectedDate}`, {
+            headers: {
+                Accept: 'application/json',
+                Authorization: `Bearer ${getState().auth.token}`
             }
-        })
-    });
+        });
 
-    dispatch({type: GET_SELECTED_DATE_SALAT, payload: shalatArr});
+        let shalatArr = [
+            {id: -1, nama: "subuh", status: "Belum Mengisi"},
+            {id: -1, nama: "duhur", status: "Belum Mengisi"},
+            {id: -1, nama: "asar", status: "Belum Mengisi"},
+            {id: -1, nama: "magrib", status: "Belum Mengisi"},
+            {id: -1, nama: "isya", status: "Belum Mengisi"},
+        ];
+
+        const arrResponse = await response.data.data.data.map(a => ({
+            id: a.id,
+            nama: a.salat.nama,
+            status: a.salat.status
+        }));
+
+        await shalatArr.forEach((e, i) => {
+            arrResponse.forEach(a => {
+                if (a.nama === e.nama) {
+                    shalatArr[i] = a;
+                }
+            })
+        });
+
+        dispatch({type: GET_SELECTED_DATE_SALAT, payload: shalatArr});
+    } catch (e) {
+
+    }
 };
 
 export const getDataSalatAll = () => async (dispatch, getState) => {
@@ -123,8 +130,6 @@ export const getDataSalatAll = () => async (dispatch, getState) => {
             Authorization: `Bearer ${getState().auth.token}`
         }
     });
-
-    console.log(response)
 };
 
 export const getStatusOverviewThisMonth = () => async (dispatch, getState) => {
@@ -152,7 +157,7 @@ export const getStatusOverviewThisMonth = () => async (dispatch, getState) => {
     })
 
 };
-//
+
 // export const updateDataSalat = (salat, status, tanggal) => async (dispatch, getState) => {
 //     const response = await salatDiary.put('/api/v1/salat', {
 //         id_user: id_user,

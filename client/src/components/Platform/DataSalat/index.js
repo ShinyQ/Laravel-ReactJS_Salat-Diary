@@ -1,11 +1,11 @@
 import React, {Component} from 'react';
-import {Calendar, Col, Modal, Row, Skeleton, Table, Tag} from 'antd';
+import {Calendar, Col, Row, Skeleton, Table, Tag} from 'antd';
 import {connect} from 'react-redux';
 import moment from 'moment'
 
 import {getDataSalatAll, getSalatByDate} from "../../../actions/salatAction";
 import Title from "../Title";
-import ModalBody from "./ModalBody";
+import UpdateSalatForm from './UpdateSalatForm';
 
 
 class DataSalat extends Component {
@@ -13,15 +13,17 @@ class DataSalat extends Component {
     state = {
         value: moment(),
         selectedDate: moment(),
-        nama: null,
+        nama: "",
         status: null,
+        idSalat: null,
         isModalOpen: false,
         isLoading: false
     };
-    openModal = (nama, status) => {
+    openModal = (nama, status, idSalat) => {
         this.setState({
             nama,
             status,
+            idSalat,
             isModalOpen: true
         })
     };
@@ -37,13 +39,22 @@ class DataSalat extends Component {
             selectedValue: value,
         });
     };
+
+    onUpdateSalat = () => {
+        const form = this.formRef.props.form;
+        form.validateFields((e, v) => {
+            console.log(v);
+        })
+    };
     cancelModal = () => {
         this.setState({
-            nama: null,
+            nama: "",
             status: null,
+            idSalat: null,
             isModalOpen: false
         })
     };
+
     renderStatistikSalat = () => {
         this.columns = [
             {
@@ -57,7 +68,6 @@ class DataSalat extends Component {
                 dataIndex: 'status',
                 key: 'status',
                 render: tags => {
-                    console.log(tags);
                     let color;
                     switch (tags) {
                         case "Salat Berjamaah":
@@ -85,11 +95,14 @@ class DataSalat extends Component {
             {
                 title: 'Action',
                 key: 'action',
-                render: (text, record) => (
+                render: (text, record) => {
+                    return (
                     <span>
-                       <a href="javascript:" onClick={() => this.openModal(record.nama, record.status)}>Edit</a>
+                       <a href="javascript:"
+                          onClick={() => this.openModal(record.nama, record.status, record.id)}>Edit</a>
                     </span>
-                ),
+                    )
+                },
             },
         ];
         if (this.state.isLoading) {
@@ -120,6 +133,10 @@ class DataSalat extends Component {
         this.props.getDataSalatAll();
     }
 
+    saveFormRef = formRef => {
+        this.formRef = formRef
+    };
+
     render() {
         return (
             <div>
@@ -135,13 +152,18 @@ class DataSalat extends Component {
                         {this.renderStatistikSalat()}
                     </Col>
                 </Row>
-                <Modal
-                    title={`Update Salat -  ${this.state.value.format('Do MMMM YYYY')}`}
+
+                <UpdateSalatForm
+                    wrappedComponentRef={this.saveFormRef}
+                    valueTanggal={this.state.value}
                     visible={this.state.isModalOpen}
                     onCancel={this.cancelModal}
-                >
-                    <ModalBody salat={this.props.nama}/>
-                </Modal>
+                    onUpdate={this.onUpdateSalat}
+                    salat={this.state.nama}
+                    status={this.state.status}
+                    idSalat={this.state.idSalat}
+                />
+
             </div>
         );
     }
