@@ -13,15 +13,17 @@ class DataSalat extends Component {
     state = {
         value: moment(),
         selectedDate: moment(),
-        nama: null,
+        nama: "",
         status: null,
+        idSalat: null,
         isModalOpen: false,
         isLoading: false
     };
-    openModal = (nama, status) => {
+    openModal = (nama, status, idSalat) => {
         this.setState({
             nama,
             status,
+            idSalat,
             isModalOpen: true
         })
     };
@@ -39,8 +41,9 @@ class DataSalat extends Component {
     };
     cancelModal = () => {
         this.setState({
-            nama: null,
+            nama: "",
             status: null,
+            idSalat: null,
             isModalOpen: false
         })
     };
@@ -57,7 +60,6 @@ class DataSalat extends Component {
                 dataIndex: 'status',
                 key: 'status',
                 render: tags => {
-                    console.log(tags);
                     let color;
                     switch (tags) {
                         case "Salat Berjamaah":
@@ -85,11 +87,14 @@ class DataSalat extends Component {
             {
                 title: 'Action',
                 key: 'action',
-                render: (text, record) => (
+                render: (text, record) => {
+                    return (
                     <span>
-                       <a href="javascript:" onClick={() => this.openModal(record.nama, record.status)}>Edit</a>
+                       <a href="javascript:"
+                          onClick={() => this.openModal(record.nama, record.status, record.id)}>Edit</a>
                     </span>
-                ),
+                    )
+                },
             },
         ];
         if (this.state.isLoading) {
@@ -140,7 +145,7 @@ class DataSalat extends Component {
                     visible={this.state.isModalOpen}
                     onCancel={this.cancelModal}
                 >
-                    <ModalBody salat={this.props.nama}/>
+                    <ModalBody salat={this.state.nama} status={this.state.status} idSalat={this.state.idSalat}/>
                 </Modal>
             </div>
         );
