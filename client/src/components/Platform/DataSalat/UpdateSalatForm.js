@@ -34,10 +34,11 @@ const UpdateSalatForm = Form.create({name: 'formUpdateSalat'})(
                             <Title judul={salat.charAt(0).toUpperCase() + salat.slice(1)} level={4}/>
                         </Col>
                         <Col span={12}>
-                            <p>Status {status}</p>
                             <Form>
                                 <Form.Item>
-                                    {form.getFieldDecorator('statusSalat')(
+                                    {form.getFieldDecorator('statusSalat', {
+                                        initialValue: status
+                                    })(
                                         <Select
                                         >
                                             <Option value="Salat Berjamaah">Salat Berjamaah</Option>
